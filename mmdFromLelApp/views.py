@@ -5,7 +5,6 @@ from mmdFromLelApp.services.AplicadorReglasSujeto import AplicadorDeReglasSujeto
 from mmdFromLelApp.services.AplicadorReglasVerbo import AplicadorDeReglasVerbo
 
 from mmdFromLelApp.tests.MockLel import MockLel
-import spacy
 
 
 

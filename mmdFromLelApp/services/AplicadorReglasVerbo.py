@@ -23,6 +23,7 @@ class AplicadorDeReglasVerbo():
 
             # v should be defined as a fact
             self.diagramasEnVerbo.nuevoHecho(v)
+            v.actualizarPosicionDiagrama(self.diagramasEnVerbo.posicionVerbo)
 
             # Encontrar todos los Categorical objects and subjects del verbo
             sujetosYObjetosDeVerbo = self.reglasVerbo.encontrarObjetosYsujetosDeVerbo(v.nocion)
@@ -30,12 +31,12 @@ class AplicadorDeReglasVerbo():
 
             # apply Rule 2 to v, get set Mf of measures, add them to f
             # apply Rule 3 to v, get set Df of dimensions, add them to f
-            procesadoEnVerbo = self.reglasVerbo.procesarElVerbo(sujetosYObjetosDeVerbo, lels)
+            procesadoEnVerbo = self.reglasVerbo.procesarElVerbo(sujetosYObjetosDeVerbo, lels, v)
 
 
             self.diagramasEnVerbo.generarObjetosDelDiagramaPorVerbo(procesadoEnVerbo, v.simbolo)
             
-            v.terminadoDeProcesarVerbo(self.diagramasEnVerbo.posicionVerbo)
+            v.terminadoDeProcesarVerbo()
             self.diagramasEnVerbo.actualizarPosicionVerbo()
 
         return procesadoEnVerbo.lelsCategoricosDeVerbo

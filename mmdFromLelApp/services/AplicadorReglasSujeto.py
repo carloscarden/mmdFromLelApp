@@ -49,8 +49,8 @@ class AplicadorDeReglasSujeto():
 
 
                 hayMasLels.extend(procesadoEnSujeto.lelsDeNivelNoProcesados)
-                self.diagramasEnSujeto.nuevasPropiedades(procesadoEnSujeto.lelsDePropiedad)
-                self.diagramasEnSujeto.nuevosNiveles(procesadoEnSujeto.lelsDeNivelNoProcesados)
+                self.diagramasEnSujeto.nuevasPropiedades(procesadoEnSujeto.lelsDePropiedad, sujeto)
+                self.diagramasEnSujeto.nuevosNiveles(procesadoEnSujeto.lelsDeNivelNoProcesados, sujeto)
 
             if not hayMasLels:
                 break

@@ -23,7 +23,7 @@ class ReglasEnVerbo(Reglas):
         return lista_simboloes
 
 
-    def procesarElVerbo(self, sujetosYObjetosDeVerbo: List[str], lelMockeado: List[Lel])-> ProcesadoEnVerbo:
+    def procesarElVerbo(self, sujetosYObjetosDeVerbo: List[str], lelMockeado: List[Lel], verbo: Lel)-> ProcesadoEnVerbo:
         procesadoEnVerbo = ProcesadoEnVerbo([],[])
         for simbolo in sujetosYObjetosDeVerbo :
             # Encontrar el LEL correspondiente
@@ -44,6 +44,7 @@ class ReglasEnVerbo(Reglas):
                         # REGLA 3
                     # Categorical objects and subjects of verbs give origin to dimensions
                     # Si no cae en la categoria de medida, entonces es un categorico del verbo
-                    procesadoEnVerbo.nuevoLelCategoricoDeVerbo(lelDeVerboAprocesar[0])
+                    posicion = verbo.getPosicionParaNodoDeVerbo()
+                    procesadoEnVerbo.nuevoLelCategoricoDeVerbo(lelDeVerboAprocesar[0], posicion)
                 
         return procesadoEnVerbo    

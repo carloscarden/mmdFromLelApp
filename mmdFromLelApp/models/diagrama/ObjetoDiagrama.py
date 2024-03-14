@@ -26,9 +26,9 @@ class ObjetoDiagrama:
 
 
     @classmethod
-    def nuevoNivel(self, simbolo, aQuienPertenece):
-        return ObjetoDiagrama(simbolo, aQuienPertenece,  TipoObjetoDiagrama.NIVEL)
+    def nuevoNivel(self, simbolo, aQuienPertenece, posicionNueva):
+        return ObjetoDiagrama(simbolo, aQuienPertenece,  TipoObjetoDiagrama.NIVEL, posicionNueva[0], posicionNueva[1])
 
     @classmethod
-    def nuevaPropiedad(self, simbolo, aQuienPertenece):
-        return ObjetoDiagrama(simbolo, aQuienPertenece,  TipoObjetoDiagrama.PROPIEDAD)
+    def nuevaPropiedad(self, simbolo, aQuienPertenece, posicionNueva):
+        return ObjetoDiagrama(simbolo, aQuienPertenece,  TipoObjetoDiagrama.PROPIEDAD, posicionNueva[0], posicionNueva[1])

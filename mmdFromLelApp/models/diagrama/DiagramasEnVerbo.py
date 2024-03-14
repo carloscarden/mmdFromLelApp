@@ -19,8 +19,8 @@ class DiagramasEnVerbo:
         
 
     def nuevoHecho(self, verbo: Lel):
-        nuevoVerbo = ObjetoDiagrama.nuevoHecho(verbo.simbolo,  TipoObjetoDiagrama.HECHO)
-        self.diagrama.nuevoObjetoDelDiagrama(nuevoVerbo, self.posicionVerbo)
+        nuevoVerbo = ObjetoDiagrama.nuevoHecho(verbo.simbolo, self.posicionVerbo)
+        self.diagrama.nuevoObjetoDelDiagrama(nuevoVerbo)
 
     def actualizarPosicionVerbo(self):
         self.posicionVerbo = (self.posicionVerbo[0]+ConstantesPosiciones.ACTUALIZACION_X, 

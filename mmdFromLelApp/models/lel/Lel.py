@@ -26,14 +26,11 @@ class Lel:
         self.datosParaProceso = DatosParaProcesoDiagrama()
 
 
-    
     def devolverDocNotion(self, nlp) -> Doc:
         return self.datosParaProceso.miDocNotion(nlp, self.nocion)
 
-
-    def terminadoDeProcesarVerbo(self, posicion):
-        self.datosParaProceso.nuevoVerbo(posicion)
-
+    def terminadoDeProcesarVerbo(self):
+        self.datosParaProceso.nuevoVerbo()
 
     def terminadoDeProcesarNivel(self, posicion):
         self.datosParaProceso.nuevoNivel(posicion)
@@ -43,3 +40,12 @@ class Lel:
 
     def estaProcesado(self):
         return self.datosParaProceso.procesadoLel
+
+    def actualizarPosicionDiagrama(self, posicion):
+        self.datosParaProceso.nuevaPosicionDiagrama(posicion)
+
+    def getPosicionParaNodoDeVerbo(self):
+        return self.datosParaProceso.calcularPosicionProximoNodoParaVerbo()
+
+    def getPosicionParaNodoDeSujeto(self):
+        return self.datosParaProceso.calcularPosicionProximoNodo()

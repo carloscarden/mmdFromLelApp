@@ -27,7 +27,8 @@ class ProcesadoEnVerbo:
     def nuevoLelDeMedida(self, unLelDeMedida):
         self.lelsDeMedida.append(unLelDeMedida)
 
-    def nuevoLelCategoricoDeVerbo(self, unLelCategoricoDeVerbo):
+    def nuevoLelCategoricoDeVerbo(self, unLelCategoricoDeVerbo: Lel, unaPosicionDiagrama):
+        unLelCategoricoDeVerbo.actualizarPosicionDiagrama(unaPosicionDiagrama) 
         self.lelsCategoricosDeVerbo.append(unLelCategoricoDeVerbo)
 
     def devolverLelsDeMedida(self):
