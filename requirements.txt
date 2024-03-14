@@ -1,0 +1,27 @@
+django-ckeditor==6.4.0
+django-cors-headers==3.13.0
+django-crispy-forms==1.14.0
+django-crontab==0.7.1
+django-dbbackup==4.0.2
+django-froala-editor==4.0.10
+django-js-asset==2.0.0
+djangorestframework==3.14.0
+
+en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.3.0/en_core_web_sm-3.3.0-py3-none-any.whl
+en-core-web-trf @ https://github.com/explosion/spacy-models/releases/download/en_core_web_trf-3.3.0/en_core_web_trf-3.3.0-py3-none-any.whl
+es-core-news-lg @ https://github.com/explosion/spacy-models/releases/download/es_core_news_lg-3.3.0/es_core_news_lg-3.3.0-py3-none-any.whl
+es-dep-news-trf @ https://github.com/explosion/spacy-models/releases/download/es_dep_news_trf-3.3.0/es_dep_news_trf-3.3.0-py3-none-any.whl
+
+spacy==3.3.0
+spacy-alignments==0.8.5
+spacy-legacy==3.0.10
+spacy-loggers==1.0.2
+spacy-transformers==1.1.5
+
+nltk==3.7
+numpy==1.24.2
+numpy==1.24.2
+
+scikit-learn==1.2.1
+scipy==1.10.0
+
