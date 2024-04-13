@@ -73,8 +73,9 @@ capacity and is manufactured in one or more factories''' )
 
         '''
 
-        sujeto = Lel(Categoria.SUJETO, 'Model', '''A car design that belongs to one segment. A model has an engine
-capacity and is manufactured in one or more factories''' )
+        sujeto = Lel(Categoria.SUJETO, 'Client', '''A person or organization. A client may be described by gender and
+age''')
+
 
         niveles = self.procesarSujeto(sujeto).lelsDeNivel
         
@@ -88,7 +89,7 @@ capacity and is manufactured in one or more factories''' )
                 optionalArcs.append(nivel)
 
 
-        optionalArcsQueTieneQueDevolver = []
+        optionalArcsQueTieneQueDevolver = ['Gender']
         # Comprueba que todos los simbolos en hechosQueTieneQueDevolver están en resultado
         for s in optionalArcsQueTieneQueDevolver:
             self.assertTrue(any(oa.simbolo == s for oa in optionalArcs))
