@@ -13,14 +13,12 @@ class TestReglasEnSujeto(TestCase):
         self.mockLel = MockLel().lelMockeadoEmpresaAutos()
         self.reglasSujeto = ReglasEnSujeto()
 
-        self.sujeto = Lel(Categoria.SUJETO, 'Model', '''A car design that belongs to one segment. A model has an engine
-capacity and is manufactured in one or more factories''' )
 
 
-    def procesarSujeto(self):
+    def procesarSujeto(self, sujeto):
 
         # Encontrar todos los Categorical objects and subjects del sujeto
-        encontradoEnSujeto  = self.reglasSujeto.encontrarLosObjetosCategoricosDeSujetos(self.sujeto)
+        encontradoEnSujeto  = self.reglasSujeto.encontrarLosObjetosCategoricosDeSujetos(sujeto)
 
         #apply Rule 4 to o, get set Cl of levels, add them to l as children levels
         #apply Rule 5 to o, get set Pl of properties, add them to l as children levels
@@ -36,8 +34,10 @@ capacity and is manufactured in one or more factories''' )
            salida:  [segment]
         '''
 
+        sujeto = Lel(Categoria.SUJETO, 'Model', '''A car design that belongs to one segment. A model has an engine
+capacity and is manufactured in one or more factories''' )
         
-        niveles = self.procesarSujeto().lelsDeNivel
+        niveles = self.procesarSujeto(sujeto).lelsDeNivel
 
 
         nivelesQueTieneQueDevolver = []
@@ -55,8 +55,10 @@ capacity and is manufactured in one or more factories''' )
         
         '''
 
+        sujeto = Lel(Categoria.SUJETO, 'Model', '''A car design that belongs to one segment. A model has an engine
+capacity and is manufactured in one or more factories''' )
         
-        properties = self.procesarSujeto().lelsDePropiedad
+        properties = self.procesarSujeto(sujeto).lelsDePropiedad
 
         
         propertiesQueTieneQueDevolver = []
@@ -71,11 +73,17 @@ capacity and is manufactured in one or more factories''' )
 
         '''
 
-        niveles = self.procesarSujeto().lelsDeNivel
+        sujeto = Lel(Categoria.SUJETO, 'Model', '''A car design that belongs to one segment. A model has an engine
+capacity and is manufactured in one or more factories''' )
+
+        niveles = self.procesarSujeto(sujeto).lelsDeNivel
+        
+        # Encontrar todos los Categorical objects and subjects del verbo
+        encontradoEnSujeto  = self.reglasSujeto.encontrarLosObjetosCategoricosDeSujetos(sujeto)
 
         optionalArcs = [Lel]
         for nivel in niveles:
-            if (self.reglasSujeto.esArcoOpcional(self.sujeto.devolverDocNotion(), nivel.simbolo)):
+            if (  any(oa == nivel.simbolo for oa in encontradoEnSujeto.optionalArcs) ):
                 # apply Rule 7 to o and o′, possibly change the arc from l to l′to optional
                 optionalArcs.append(nivel)
 
@@ -99,8 +107,7 @@ capacity and is manufactured in one or more factories''' )
 capacity and is manufactured in one or more factories''' )
 
 
-        niveles = self.procesarSujeto().lelsDeNivel
-        sujetoDocNotion = self.sujeto.devolverDocNotion()
+        niveles = self.procesarSujeto(sujeto).lelsDeNivel
 
 
         # Encontrar todos los Categorical objects and subjects del verbo
@@ -109,7 +116,7 @@ capacity and is manufactured in one or more factories''' )
 
         multipleArcs = [Lel]
         for nivel in niveles:
-            if (  any(oa == nivel.simbolo for oa in encontradoEnSujeto.optionalArcs) ):
+            if (  any(pc == nivel.simbolo for pc in encontradoEnSujeto.pluralChunks) ):
                 # apply Rule 7 to o and o′, possibly change the arc from l to l′to optional
                 multipleArcs.append(nivel)
 
