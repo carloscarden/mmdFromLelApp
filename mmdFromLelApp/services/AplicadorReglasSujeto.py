@@ -8,14 +8,12 @@ from mmdFromLelApp.services.ReglasEnSujeto import ReglasEnSujeto
 
 
 
-
 class AplicadorDeReglasSujeto():
 
 
     def __init__(self, unDiagrama: Diagrama) -> None:
         self.diagramasEnSujeto = DiagramasEnSujeto(unDiagrama)
         self.reglas = ReglasEnSujeto()
-
 
     def aplicarReglasDeSujeto(self, lelsCategoricosDeVerbo: List[Lel], lels: List[Lel]):
 
@@ -37,10 +35,10 @@ class AplicadorDeReglasSujeto():
 
                 for nivel in niveles:
                     link = None
-                    if(self.reglas.esArcoMultiple(encontradoEnSujeto.pluralChunks, nivel.simbolo)):
+                    if(  any(pc == nivel.simbolo for pc in encontradoEnSujeto.pluralChunks) ):
                         # apply Rule 6 to o and o′, possibly change the arc from l to l′to multiple
                         link = LinkDiagrama.nuevoLinkMultiple( sujeto.simbolo, nivel.simbolo)
-                    elif (self.reglas.esArcoOpcional(sujeto.datosParaProceso.docNotion, nivel.simbolo)):
+                    elif (  any(oa == nivel.simbolo for oa in encontradoEnSujeto.optionalArcs) ):
                         # apply Rule 7 to o and o′, possibly change the arc from l to l′to optional
                         link= LinkDiagrama.nuevoLinkOpcional( sujeto.simbolo, nivel.simbolo)
                     else:
@@ -56,5 +54,4 @@ class AplicadorDeReglasSujeto():
                 break
             else:
                 lelsAprocesar = hayMasLels
-
 

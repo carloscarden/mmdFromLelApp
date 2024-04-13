@@ -5,24 +5,24 @@ from mmdFromLelApp.models.lel.Lel import Lel
 
 
 class ProcesadoEnVerbo:
-    """Aca se guarda todo lo que se puede procesar en un verbo"""
+    ''' Aca se guarda todo lo que se puede procesar en un verbo'''
     i = 12345
 
 
     def __init__(self, lelsDeMedida: List[Lel], lelsCategoricosDeVerbo: List[Lel]):
+
+        self.lelsDeMedida=lelsDeMedida 
         ''' 
           lelsDeMedida be the set of objects and subjects in notion of verb that denote 
                 numerical attributes
         '''
 
-        self.lelsDeMedida=lelsDeMedida 
 
-
+        self.lelsCategoricosDeVerbo=  lelsCategoricosDeVerbo
         ''' 
           lelsCategoricosDeVerbo be the set of objects and subjects in notion of verb that denote
                 categorical attributes
         '''
-        self.lelsCategoricosDeVerbo=  lelsCategoricosDeVerbo
 
     def nuevoLelDeMedida(self, unLelDeMedida):
         self.lelsDeMedida.append(unLelDeMedida)

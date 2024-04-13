@@ -3,13 +3,24 @@ from typing import List
 from mmdFromLelApp.models.lel.Lel import Lel
 
 class ProcesadoEnSujeto:
-    """ Acá se guarda todo lo que se puede procesar de un sujeto"""
+    ''' Aca se guarda todo lo que se puede procesar en un sujeto'''
     i = 12345
 
     def __init__(self, lelsDePropiedad: List[Lel], lelsDeNivel: List[Lel], lelsDeNivelNoProcesados: List[Lel]):
         self.lelsDePropiedad=lelsDePropiedad 
+        ''' 
+        lelsDePropiedad be the set of objects and subjects in subject that denote numerical attributes
+        '''
+
         self.lelsDeNivel=  lelsDeNivel
-        self.lelsDeNivelNoProcesados=  lelsDeNivel
+        ''' 
+         lelsDeNivel be the set of objects and subjects in subject that denote categorical attributes
+        '''
+
+        self.lelsDeNivelNoProcesados=  lelsDeNivelNoProcesados
+        ''' 
+         lelsDeNivelNoProcesados son los nuevos lels de nivel a dibujar y también a procesar
+        '''
 
     def nuevoLelDePropiedad(self, unLelDePropiedad: Lel):
         self.lelsDePropiedad.append(unLelDePropiedad)

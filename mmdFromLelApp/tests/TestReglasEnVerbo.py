@@ -11,18 +11,22 @@ from mmdFromLelApp.tests.MockLel import MockLel
 class TestReglasEnVerbo(TestCase):
 
     def setUp(self) -> None:
-        self.mockLel = MockLel().lelMockeado()
+        self.mockLel = MockLel().lelMockeadoEmpresaAutos()
         self.reglasVerbo = ReglasEnVerbo()
+        self.verbo = Lel(Categoria.VERBO,  'Sell a car', ''' Operation in which a client pays a price to obtain a car on a date in
+a store.''')
+
 
     def testRecuperarHechos(self):
 
-        '''  Verbs give origin to facts 
+        '''  Testeo primera regla de los Verbos para los lels correspondientes a una empresa de autos. 
+        Verbs give origin to facts 
  
-           entrada: List[Lel]
-           salida: List[Lel] tq Lel sea verbo
+           entrada: lelMockeadoEmpresaAutos
+           salida:  "Sell a Car" 
            
         '''
-        hechosQueTieneQueDevolver = ['Administer']
+        hechosQueTieneQueDevolver = ['Sell a Car']
         hechos = self.reglasVerbo.recuperarLosVerbos(self.mockLel)
 
         print("")
@@ -40,25 +44,22 @@ class TestReglasEnVerbo(TestCase):
 
     def procesarVerbo(self) -> ProcesadoEnVerbo:
 
-        nocionVerbo = ''' Action performed by a doctor, that consists
-in dispensing at a certain date and hour a dose of a drug to deal with some disease
-of a patient in some seriousness in order to obtain some outcome.'''
-
-        # Encontrar todos los Categorical objects and subjects del verbo
-        sujetosYObjetosDeVerbo = self.reglasVerbo.encontrarObjetosYsujetosDeVerbo(nocionVerbo)
+        
+        sujetosYObjetosDeVerbo = self.reglasVerbo.encontrarObjetosYsujetosDeVerbo(self.verbo.nocion)
 
 
         # apply Rule 2 to v, get set Mf of measures, add them to f
         # apply Rule 3 to v, get set Df of dimensions, add them to f
-        return self.reglasVerbo.procesarElVerbo(sujetosYObjetosDeVerbo, self.mockLel)
+        return self.reglasVerbo.procesarElVerbo(sujetosYObjetosDeVerbo, self.mockLel, self.verbo)
 
 
 
     def testRecupearMedidas(self):
-        '''  Numerical objects and subjects of verbs give origin to measures. 
-           entrada: notion verb, List[Lel] 
-           salida:  List[Lel] tq Lel sea el numerical object del verbo
- 
+        '''  Testeo 2da regla de los Verbos para los lels correspondientes a una empresa de autos. 
+           Numerical objects and subjects of verbs give origin to measures. 
+
+              entrada: 'Sell a Car'
+              salida:  ['Price']
         '''
 
 
@@ -80,16 +81,18 @@ of a patient in some seriousness in order to obtain some outcome.'''
 
 
 
-    def testRecuperarDimensiones(self, procesadoEnVerbo: ProcesadoEnVerbo):
+    def testRecuperarDimensiones(self):
 
-        '''Categorical objects and subjects of verbs give origin to dimensions.
+        '''
+        Testeo 3ra regla de los Verbos para los lels correspondientes a una empresa de autos. 
+        Categorical objects and subjects of verbs give origin to dimensions.
         
-           entrada: notion verb, List[Lel]
-           salida:  List[Lel] tq Lel sea el categorical object del verbo
+           entrada: 'Sell a Car'
+           salida:  ['Car', 'Store', 'Date', 'Client]
 
         '''
 
-        dimensionesQueTieneQueDevolver = []
+        dimensionesQueTieneQueDevolver = ['Car', 'Store', 'Date', 'Client']
         dimensionesDevueltas = self.procesarVerbo().lelsCategoricosDeVerbo
 
         print("               TEST RECUPERAR DIMENSIONES!!!")

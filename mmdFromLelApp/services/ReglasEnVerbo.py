@@ -13,10 +13,14 @@ nlp = spacy.load("en_core_web_sm")
 class ReglasEnVerbo(Reglas):
 
     def recuperarLosVerbos(self, lels: List[Lel]) -> List[Lel]:
+          ''' dado un listado de lels devuelve todos los lels que sean VERBO'''
           return [objeto for objeto in lels if objeto.categoria == Categoria.VERBO]
 
 
     def encontrarObjetosYsujetosDeVerbo(self, nocion: str):
+        ''' Con spacy encuentra todos los posibles Categorical objects and subjects del verbo '''
+
+
         notionVerboDoc = nlp(nocion)
         # procesar notion para que me de los objetos y sujetos
         lista_simboloes = self.procesarNotion(notionVerboDoc)
@@ -24,6 +28,10 @@ class ReglasEnVerbo(Reglas):
 
 
     def procesarElVerbo(self, sujetosYObjetosDeVerbo: List[str], lelMockeado: List[Lel], verbo: Lel)-> ProcesadoEnVerbo:
+        
+        ''' De lo que encontré en el notion del verbo (sujetosYObjetosDeVerbo) debo buscarlos en
+          el listado del Lel si es medida o no. Devuelve lo procesado en el objeto ProcesadoEnVerbo'''
+          
         procesadoEnVerbo = ProcesadoEnVerbo([],[])
         for simbolo in sujetosYObjetosDeVerbo :
             # Encontrar el LEL correspondiente

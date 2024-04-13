@@ -4,7 +4,7 @@ from mmdFromLelApp.models.lel.Lel import Lel
 
 class MockLel:
 
-    def lelMockeado(self):
+    def lelMockeadoHospital(self):
         lel1 = Lel(Categoria.VERBO,  'Administer', ''' Action performed by a doctor, that consists
 in dispensing at a certain date and hour a dose of a drug to deal with some disease
 of a patient in some seriousness in order to obtain some outcome.''')
@@ -47,3 +47,23 @@ and cultural differences.''')
          lel15, lel16, lel17, lel18, lel19, lel20, lel21, lel22]
 
         return lels
+
+    def lelMockeadoEmpresaAutos(self):
+
+        lel1 = Lel(Categoria.VERBO,  'Sell a car', ''' Operation in which a client pays a price to obtain a car on a date in
+a store.''')
+
+        lel2 = Lel(Categoria.OBJETO, 'Car', '''Four-wheel vehicle that may have different packages and can be used
+either privately or commercially. A car has a model.''')
+
+        lel3 = Lel(Categoria.OBJETO, 'Store', '''Facility where the purchase has been done. A store is located in one
+city..''')
+
+        lel4 = Lel(Categoria.OBJETO, 'Date', '''The day when the purchase has been done.''')
+
+        lel5 = Lel(Categoria.SUJETO, 'Client', '''A person or organization. A client may be described by gender and
+age''')
+
+        lels = [lel1,lel2,lel3,lel4,lel5]
+
+        return lels 

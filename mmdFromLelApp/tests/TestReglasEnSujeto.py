@@ -9,17 +9,18 @@ from mmdFromLelApp.tests.MockLel import MockLel
 
 class TestReglasEnSujeto(TestCase):
 
-
     def setUp(self) -> None:
-        self.mockLel = MockLel().lelMockeado()
+        self.mockLel = MockLel().lelMockeadoEmpresaAutos()
         self.reglasSujeto = ReglasEnSujeto()
 
+        self.sujeto = Lel(Categoria.SUJETO, 'Model', '''A car design that belongs to one segment. A model has an engine
+capacity and is manufactured in one or more factories''' )
 
-    def procesarSujeto(self, sujeto: Lel):
 
+    def procesarSujeto(self):
 
         # Encontrar todos los Categorical objects and subjects del sujeto
-        encontradoEnSujeto  = self.reglasSujeto.encontrarLosObjetosCategoricosDeSujetos(sujeto)
+        encontradoEnSujeto  = self.reglasSujeto.encontrarLosObjetosCategoricosDeSujetos(self.sujeto)
 
         #apply Rule 4 to o, get set Cl of levels, add them to l as children levels
         #apply Rule 5 to o, get set Pl of properties, add them to l as children levels
@@ -31,14 +32,12 @@ class TestReglasEnSujeto(TestCase):
 
         '''Categorical objects and subjects of objects or subjects give origin to levels
         
-           entrada: notion del subject, List[Lel]
-           salida:  List[Lel] tq Lel sea el categorical object del sujeto
+           entrada: Model
+           salida:  [segment]
         '''
 
-        sujeto = Lel(Categoria.SUJETO, 'Patient', ''' Person who is ill or hurt, characterized by
-gender and city.''' )
         
-        niveles = self.procesarSujeto(sujeto).lelsDeNivel
+        niveles = self.procesarSujeto().lelsDeNivel
 
 
         nivelesQueTieneQueDevolver = []
@@ -47,19 +46,17 @@ gender and city.''' )
             self.assertTrue(any(oa.simbolo == s for oa in niveles))
 
 
-    def testRecuperarProperties(self, procesadoEnSujeto: ProcesadoEnSujeto):
+    def testRecuperarProperties(self):
 
         '''Numerical objects and subjects of objects or subjects give origin to properties.
           
-           entrada: notion del subject, List[Lel]
-           salida:  List[Lel] tq Lel sea el numerical object del sujeto
+           entrada: Model
+           salida:  [capacity]
         
         '''
-        sujeto = Lel(Categoria.SUJETO, 'Patient', ''' Person who is ill or hurt, characterized by
-gender and city.''' )
 
         
-        properties = self.procesarSujeto(sujeto).lelsDePropiedad
+        properties = self.procesarSujeto().lelsDePropiedad
 
         
         propertiesQueTieneQueDevolver = []
@@ -73,14 +70,12 @@ gender and city.''' )
         ''' Expressions of possibility in objects and subjects determine optional arcs.
 
         '''
-        sujeto = Lel(Categoria.SUJETO, 'Patient', ''' Person who is ill or hurt, characterized by
-gender and city.''' )
 
-        niveles = self.procesarSujeto(sujeto).lelsDeNivel
+        niveles = self.procesarSujeto().lelsDeNivel
 
         optionalArcs = [Lel]
         for nivel in niveles:
-            if (self.reglasSujeto.esArcoOpcional(sujeto.devolverDocNotion(), nivel.simbolo)):
+            if (self.reglasSujeto.esArcoOpcional(self.sujeto.devolverDocNotion(), nivel.simbolo)):
                 # apply Rule 7 to o and o′, possibly change the arc from l to l′to optional
                 optionalArcs.append(nivel)
 
@@ -93,16 +88,28 @@ gender and city.''' )
 
     def testRecuperarMultipleArcs(self):
 
-        '''Plural objects and subjects give origin to multiple arcs'''
+        '''Plural objects and subjects give origin to multiple arcs
+        
+           entrada: Model
+           salida:  [factory]
 
-        sujeto = Lel(Categoria.SUJETO, 'Patient', ''' Person who is ill or hurt, characterized by
-gender and city.''' )
+        '''
 
-        niveles = self.procesarSujeto(sujeto).lelsDeNivel
-        sujetoDocNotion = sujeto.devolverDocNotion()
+        sujeto = Lel(Categoria.SUJETO, 'Model', '''A car design that belongs to one segment. A model has an engine
+capacity and is manufactured in one or more factories''' )
+
+
+        niveles = self.procesarSujeto().lelsDeNivel
+        sujetoDocNotion = self.sujeto.devolverDocNotion()
+
+
+        # Encontrar todos los Categorical objects and subjects del verbo
+        encontradoEnSujeto  = self.reglasSujeto.encontrarLosObjetosCategoricosDeSujetos(sujeto)
+
+
         multipleArcs = [Lel]
         for nivel in niveles:
-            if (self.reglasSujeto.esArcoMultiple(sujetoDocNotion, nivel.simbolo)):
+            if (  any(oa == nivel.simbolo for oa in encontradoEnSujeto.optionalArcs) ):
                 # apply Rule 7 to o and o′, possibly change the arc from l to l′to optional
                 multipleArcs.append(nivel)
 

@@ -25,7 +25,9 @@ class ReglasEnSujeto(Reglas):
         target_words = ["has", "belongs", "comprised", "covered", "incorporated", "involves", 
                     "according","according to", "characterized by","manufactured"]
 
-        encontradoEnSujeto = EncontradoEnNotionSujeto([],[], [])
+        encontradoEnSujeto = EncontradoEnNotionSujeto([],[], [], [])
+
+        encontradoEnSujeto.optionalArcs = self.buscarPosiblesArcosOpcional(doc)
 
 
         for token in doc:
@@ -39,7 +41,6 @@ class ReglasEnSujeto(Reglas):
                     obj = [w for w in doc[token.i + 1].rights  if w.dep_ == "dobj" or w.dep_ == "pobj"]
                 else:
                     obj = [w for w in token.rights if w.dep_ == "dobj" or w.dep_ == "pobj"]
-
 
 
                 # Busca el objeto en la lista de sustantivos y adjetivos a la derecha
@@ -128,15 +129,8 @@ class ReglasEnSujeto(Reglas):
                     lelDeSujetoAprocesar[0].terminadoDeProcesarNivel()
 
 
-    def esArcoMultiple(self, docNotionLevel, level) -> bool:
-        ''' . If o′is plural, then the arc from o to o′is a multiple one.'''
 
-        text = "I have apples and oranges. Oranges are my favorite fruit."
-        plural_nouns = [tok for tok in nlp(text) if tok.pos_ == "NOUN" and tok.lemma_ != tok.text]
-        print(plural_nouns)
-        return False
-
-    def esArcoOpcional(self, docNotionLevel, level)-> bool:
+    def buscarPosiblesArcosOpcional(self, doc: Doc)-> List[str]:
 
         '''
         If the docNotion  used in n to relate o with o′ suggests that some instances
@@ -165,8 +159,7 @@ of o may not be associated to every instance of o′, then the arc from o to o�
         and "client" and "age" are the subject nouns in the sentence.
         
         '''
-        sentence = "A client can be described by gender. Or, a client can be described by age."
-        doc = nlp(sentence)
+
         optional_nouns = []
         for token in doc:
             if token.dep_ == "amod" and token.tag_ in ["JJ", "JJR", "JJS"] and any(pos.tag_ == "DT" for pos in token.rights):
@@ -174,3 +167,8 @@ of o may not be associated to every instance of o′, then the arc from o to o�
             elif token.dep_ == "nsubj" and token.tag_ in ["NN", "NNS", "NNP", "NNPS"]:
                 optional_nouns.append(token.text)
         return optional_nouns    
+
+
+
+
+

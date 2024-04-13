@@ -3,9 +3,6 @@ from spacy.language import Language
 
 from mmdFromLelApp.models.diagrama.TipoObjetoDiagrama import TipoObjetoDiagrama
 
-"""El LEL es un glosario
-en el cual se definen símbolos (términos o frases), y cada símbolo se define a través
-de dos atributos: la noción y los impactos"""
 
 class DatosParaProcesoDiagrama:
 
@@ -39,6 +36,7 @@ class DatosParaProcesoDiagrama:
         return (posicionX, posicionY)
 
     def calcularPosicionX(self):
+        
         pass
 
     def calcularPosicionY(self):
