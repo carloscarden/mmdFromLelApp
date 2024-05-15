@@ -54,3 +54,11 @@ de dos atributos: la noción y los impactos'''
 
     def getPosicionParaNodoDeSujeto(self):
         return self.datosParaProceso.calcularPosicionProximoNodo()
+    
+
+    def __str__(self):
+        return f"Lel(atributo1={self.categoria}, atributo2={self.simbolo}"
+    
+
+    def __repr__(self) -> str:
+        return f"Lel(atributo1={self.categoria}, simbolo={self.simbolo}"

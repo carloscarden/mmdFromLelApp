@@ -20,7 +20,6 @@ class ReglasEnVerbo(Reglas):
     def encontrarObjetosYsujetosDeVerbo(self, nocion: str):
         ''' Con spacy encuentra todos los posibles Categorical objects and subjects del verbo '''
 
-
         notionVerboDoc = nlp(nocion)
         # procesar notion para que me de los objetos y sujetos
         lista_simboloes = self.procesarNotion(notionVerboDoc)
@@ -28,7 +27,6 @@ class ReglasEnVerbo(Reglas):
 
 
     def procesarElVerbo(self, sujetosYObjetosDeVerbo: List[str], lelMockeado: List[Lel], verbo: Lel)-> ProcesadoEnVerbo:
-        
         ''' De lo que encontré en el notion del verbo (sujetosYObjetosDeVerbo) debo buscarlos en
           el listado del Lel si es medida o no. Devuelve lo procesado en el objeto ProcesadoEnVerbo'''
           
@@ -43,7 +41,6 @@ class ReglasEnVerbo(Reglas):
                 if(len(medidas)>0):
 
                         # REGLA 2
-
                     # Numerical objects and subjects of verbs give origin to measures.
                     # buscar entre los objetos y sujetos del notion un objeto numerico
                     procesadoEnVerbo.nuevoLelDeMedida(lelDeVerboAprocesar[0])
@@ -56,3 +53,5 @@ class ReglasEnVerbo(Reglas):
                     procesadoEnVerbo.nuevoLelCategoricoDeVerbo(lelDeVerboAprocesar[0], posicion)
                 
         return procesadoEnVerbo    
+
+        

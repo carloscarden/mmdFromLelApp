@@ -8,7 +8,7 @@ class DatosParaProcesoDiagrama:
 
     i = 12345
 
-    def __init__(self, procesado: bool, docNotion: Doc, unTipoObjetoDiagrama: str, unaPosicionDiagrama):
+    def __init__(self, procesado: bool = None, docNotion: Doc = None, unTipoObjetoDiagrama: str = None, unaPosicionDiagrama = None):
         # si el lel se proceso o no
         self.procesadoLel = procesado
 

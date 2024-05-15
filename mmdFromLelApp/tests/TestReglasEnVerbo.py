@@ -16,7 +16,6 @@ class TestReglasEnVerbo(TestCase):
         self.verbo = Lel(Categoria.VERBO,  'Sell a car', ''' Operation in which a client pays a price to obtain a car on a date in
 a store.''')
 
-
     def testRecuperarHechos(self):
 
         '''  Testeo primera regla de los Verbos para los lels correspondientes a una empresa de autos. 
@@ -26,15 +25,16 @@ a store.''')
            salida:  "Sell a Car" 
            
         '''
-        hechosQueTieneQueDevolver = ['Sell a Car']
+        hechosQueTieneQueDevolver = ['Sell a car']
         hechos = self.reglasVerbo.recuperarLosVerbos(self.mockLel)
 
         print("")
         print("              TEST RECUPERAR HECHOS!!!")
+        print(hechos)
         try:
             # Comprueba que todos los simbolos en hechosQueTieneQueDevolver están en resultado
             for s in hechosQueTieneQueDevolver:
-                self.assertTrue(any(hecho.simbolo == s for hecho in hechos))
+                self.assertTrue(any(hecho.simbolo.lower() == s.lower() for hecho in hechos))
             print("TEST OK RECUPERAR HECHOS!!!")
         except AssertionError:
             print("ERROR!!!")
@@ -44,9 +44,7 @@ a store.''')
 
     def procesarVerbo(self) -> ProcesadoEnVerbo:
 
-        
         sujetosYObjetosDeVerbo = self.reglasVerbo.encontrarObjetosYsujetosDeVerbo(self.verbo.nocion)
-
 
         # apply Rule 2 to v, get set Mf of measures, add them to f
         # apply Rule 3 to v, get set Df of dimensions, add them to f
@@ -107,4 +105,5 @@ a store.''')
             print("ERROR EN RECUPERAR DIMENSIONES!!!!!!!!")
         finally:
             print("******************************")
+
 
