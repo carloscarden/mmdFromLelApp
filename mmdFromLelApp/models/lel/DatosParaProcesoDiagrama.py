@@ -43,7 +43,7 @@ class DatosParaProcesoDiagrama:
         pass
 
     
-    def calcularPosicionProximoNodoParaVerbo():
+    def calcularPosicionProximoNodoParaVerbo(self):
         return 0
 
     
