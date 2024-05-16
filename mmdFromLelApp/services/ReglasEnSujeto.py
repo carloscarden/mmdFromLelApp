@@ -32,7 +32,6 @@ class ReglasEnSujeto(Reglas):
 
         for token in doc:
             esCompuesta = self.fraseCompuesta(token, doc, target_words)
-        
             if token.text in target_words or esCompuesta:
                 # Encuentra el sujeto y el objeto de la relación
                 obj = [w for w in token.rights if w.dep_ == "dobj" or w.dep_ == "pobj"]
@@ -67,7 +66,7 @@ class ReglasEnSujeto(Reglas):
 
     def procesarNounChunk(self, encontradoEnSujeto: EncontradoEnNotionSujeto, noun_chunk: Span ):
         # Crear lista de palabras a elimina
-        stop_words = ["its", "an", "a"]
+        stop_words = ["its", "an", "a", "one"]
 
         for nc in noun_chunk:
             if(nc.tag_ in ["NNS", "NNPS"]):
@@ -83,7 +82,7 @@ class ReglasEnSujeto(Reglas):
 
     def procesarElSujeto(self, encontradoEnSujeto: EncontradoEnNotionSujeto, lelMockeado: List[Lel]) -> ProcesadoEnSujeto:
 
-        procesadoEnSujeto = ProcesadoEnSujeto([],[])
+        procesadoEnSujeto = ProcesadoEnSujeto([],[], [])
         self.procesarLosObjectsSimples(procesadoEnSujeto, encontradoEnSujeto.objectsSimple, lelMockeado)
         self.procesarLosPalabraDoble(procesadoEnSujeto, encontradoEnSujeto.nounChunks, lelMockeado)
 
@@ -93,6 +92,7 @@ class ReglasEnSujeto(Reglas):
     def procesarLosObjectsSimples(self, procesadoEnSujeto: ProcesadoEnSujeto, 
                                    objectsSimple, lelMockeado):
         
+
         for simbolo in objectsSimple:
             aBuscar = simbolo.text.lower()
 
@@ -103,22 +103,28 @@ class ReglasEnSujeto(Reglas):
 
 
     def procesarLosPalabraDoble(self, procesadoEnSujeto, nounChunks, lelMockeado):
+        print("ES PALABRA DOBLE")
         for nc in nounChunks:
+            
+            completo = " ".join([ n.text for n in nc]).strip()
+            print("completo")
+            print(completo)
             lelDeSujetoAprocesar = list( filter( lambda lel: self.esLelBuscadoCompuesto(lel, nc) , 
                                            lelMockeado))
             self.tipoDeLelQueEsElSujeto(lelDeSujetoAprocesar, procesadoEnSujeto)                               
 
 
     def tipoDeLelQueEsElSujeto(self, lelDeSujetoAprocesar:List[Lel], procesadoEnSujeto: ProcesadoEnSujeto):
+        
         if lelDeSujetoAprocesar :
-            doc = lelDeSujetoAprocesar[0].devolverDocNotion(nlp)
+            doc = nlp(lelDeSujetoAprocesar[0].simbolo)
             medidas = [tok.text for tok in doc if self.es_medida(tok.text)]
             if(len(medidas)>0):
                      #Rule 5. 
                 # Numerical objects and subjects of objects or subjects give origin to properties.
                 # buscar entre los objetos y sujetos del notion un objeto numerico
                 procesadoEnSujeto.nuevoLelDePropiedad(lelDeSujetoAprocesar[0])
-                lelDeSujetoAprocesar[0].terminadoDeProcesarPropiedad()
+                lelDeSujetoAprocesar[0].terminadoDeProcesarPropiedad(0)
             else:
                     # REGLA 4
                 # Categorical objects and subjects of objects or subjects give origin to levels

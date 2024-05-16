@@ -43,7 +43,7 @@ class Reglas:
                 sinonimos.add(lemma.name())
         sinonimos.add(palabra)
         medidas = {'amount', 'size', 'capacity',
-                  'volume', 'length', 'width',
+                  'volume', 'length', 'width', 'dose',
                   'amplitude', 'density', 'extension'}
         return any(medida in sinonimos for medida in medidas)
 

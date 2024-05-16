@@ -51,25 +51,32 @@ and cultural differences.''')
 
     def lelMockeadoEmpresaAutos(self):
 
-        lel1 = Lel(Categoria.VERBO,  'Sell a car', ''' Operation in which a client pays a price to obtain a car on a date in
-a store.''')
+        lel1 = Lel(Categoria.VERBO,  'Sell a car', ''' Operation in which a client pays a price to obtain a car on a date in a store.''')
 
         lel2 = Lel(Categoria.OBJETO, 'Price', '''Amount of money that the client must pay for the car.''')
 
         lel3 = Lel(Categoria.OBJETO, 'Car', '''Four-wheel vehicle that may have different packages and can be used
 either privately or commercially. A car has a model.''')
 
-        lel4 = Lel(Categoria.OBJETO, 'Store', '''Facility where the purchase has been done. A store is located in one
-city..''')
+
+        lel4 = Lel(Categoria.OBJETO, 'Store', '''Facility where the purchase has been done. 
+                   A store is located in one city..''')
 
         lel5 = Lel(Categoria.OBJETO, 'Date', '''The day when the purchase has been done.''')
 
-        lel6 = Lel(Categoria.SUJETO, 'Client', '''A person or organization. A client may be described by gender and
-age''')
+        lel6 = Lel(Categoria.SUJETO, 'Client', '''A person or organization. 
+                   A client may be described by gender and age''')
 
         lel7 = Lel(Categoria.OBJETO, 'Gender', '''Male or female.''')
 
+        lel8 = Lel(Categoria.SUJETO, 'Model', '''A car design that belongs to one segment. 
+                   A model has an engine capacity and is manufactured in one or more factories''' )
 
-        lels = [lel1,lel2,lel3,lel4,lel5, lel6, lel7]
+        lel9 = Lel(Categoria.OBJETO, 'Segment', '''A category that groups different car models according to 
+                   their size, use, and capacity''')
+        
+
+        lel10 = Lel(Categoria.OBJETO, 'Factory', '''A place where cars are manufactured''')
+        lels = [lel1,lel2,lel3,lel4,lel5, lel6, lel7, lel8, lel9, lel10]
         return lels 
 
