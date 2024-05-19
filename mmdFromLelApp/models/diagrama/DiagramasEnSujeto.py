@@ -17,16 +17,25 @@ class DiagramasEnSujeto:
     def nuevosNiveles(self,  lelsDeNivel: List[Lel], sujeto: Lel):
         for lel in lelsDeNivel:
             posicionNueva = sujeto.getPosicionParaNodoDeSujeto()
-            nuevaMedida = ObjetoDiagrama.nuevoNivel(lel.simbolo, sujeto, posicionNueva)
-            self.diagrama.nuevoObjetoDelDiagrama(nuevaMedida)
+            lel.actualizarPosicionDiagrama(posicionNueva)
+            
+            self.diagrama.nuevoObjetoNivelDelDiagrama(lel.simbolo, sujeto.simbolo, posicionNueva)
 
 
     def nuevasPropiedades(self,  lelsDePropiedad: List[Lel], sujeto: Lel):
         for lel in lelsDePropiedad:
             posicionNueva = sujeto.getPosicionParaNodoDeSujeto()
-            nuevaPropiedad = ObjetoDiagrama.nuevaPropiedad(lel.simbolo, sujeto.simbolo, posicionNueva)
-            self.diagrama.nuevoObjetoDelDiagrama(nuevaPropiedad)
+            lel.terminadoDeProcesarPropiedad()
+            lel.actualizarPosicionDiagrama(posicionNueva)
+            
+            self.diagrama.nuevoObjetoPropiedadDelDiagrama(lel.simbolo, sujeto.simbolo, posicionNueva)
 
+    def nuevosLelsOpcionales(self,  lelsOpcionales: List[Lel], sujeto: Lel):
+        for lel in lelsOpcionales:
+            posicionNueva = sujeto.getPosicionParaNodoDeSujeto()
+            lel.actualizarPosicionDiagrama(posicionNueva)
+            
+            self.diagrama.nuevoObjetoOpcionalDelDiagrama(lel.simbolo, sujeto.simbolo, posicionNueva)
 
     def nuevoLinkDelDiagrama(self, linkDelDiagrama):
         self.diagrama.nuevoLinkDelDiagrama(linkDelDiagrama)

@@ -32,23 +32,30 @@ class AplicadorDeReglasSujeto():
                 procesadoEnSujeto = self.reglas.procesarElSujeto(encontradoEnSujeto, lels)
 
                 niveles = procesadoEnSujeto.lelsDeNivel
+                lelsOpcionales = procesadoEnSujeto.lelsArcosOpcionales
+
 
                 for nivel in niveles:
                     link = None
-                    if(  any(pc == nivel.simbolo for pc in encontradoEnSujeto.pluralChunks) ):
+                    if ( any(pc == nivel.simbolo for pc in encontradoEnSujeto.pluralChunks) ):
                         # apply Rule 6 to o and o′, possibly change the arc from l to l′to multiple
                         link = LinkDiagrama.nuevoLinkMultiple( sujeto.simbolo, nivel.simbolo)
-                    elif (  any(oa == nivel.simbolo for oa in encontradoEnSujeto.optionalArcs) ):
-                        # apply Rule 7 to o and o′, possibly change the arc from l to l′to optional
-                        link= LinkDiagrama.nuevoLinkOpcional( sujeto.simbolo, nivel.simbolo)
                     else:
                         link= LinkDiagrama.nuevoHecho( sujeto.simbolo, nivel.simbolo)
+                    print(link)
                     self.diagramasEnSujeto.nuevoLinkDelDiagrama(link)
 
+                for lelOpcional in lelsOpcionales:
+                    # apply Rule 7 to o and o′, possibly change the arc from l to l′to optional
+                    link= LinkDiagrama.nuevoLinkOpcional(sujeto.simbolo , lelOpcional.simbolo)
+                    self.diagramasEnSujeto.nuevoLinkDelDiagrama(link)
 
                 hayMasLels.extend(procesadoEnSujeto.lelsDeNivelNoProcesados)
-                self.diagramasEnSujeto.nuevasPropiedades(procesadoEnSujeto.lelsDePropiedad, sujeto)
                 self.diagramasEnSujeto.nuevosNiveles(procesadoEnSujeto.lelsDeNivelNoProcesados, sujeto)
+                self.diagramasEnSujeto.nuevasPropiedades(procesadoEnSujeto.lelsDePropiedad, sujeto)
+                self.diagramasEnSujeto.nuevosLelsOpcionales(procesadoEnSujeto.lelsArcosOpcionales, sujeto)
+
+                sujeto.terminadoDeProcesar()
 
             if not hayMasLels:
                 break

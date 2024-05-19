@@ -1,8 +1,9 @@
 from enum import Enum
 
 class TipoObjetoDiagrama(Enum):
-    HECHO = 'Hecho'
-    MEDIDA = 'Medida'
-    DIMENSION = 'Dimension'
-    NIVEL = 'Nivel'
-    PROPIEDAD = 'Propiedad'
+    HECHO = 'HECHO'
+    MEDIDA = 'MEDIDA'
+    DIMENSION = 'DIMENSION'
+    NIVEL = 'NIVEL'
+    PROPIEDAD = 'PROPIEDAD'
+    ARCO_OPCIONAL = 'ARCO_OPCIONAL'

@@ -10,7 +10,8 @@ from mmdFromLelApp.tests.MockLel import MockLel
 
 class VerbosView(APIView):
     def get(self, request):
-        lelMockeado = MockLel().lelMockeadoHospital()
+        lelMockeado = MockLel().lelMockeadoEmpresaAutos()
+        print("LEL MOCKEADO: ", lelMockeado)
         diagrama = Diagrama([], [])
 
         aplicadorDeReglasVerbo = AplicadorDeReglasVerbo(diagrama) 
@@ -19,7 +20,7 @@ class VerbosView(APIView):
         aplicadorDeReglasSujeto = AplicadorDeReglasSujeto(diagrama)
         aplicadorDeReglasSujeto.aplicarReglasDeSujeto(lelsCategoricosDeVerbo, lelMockeado)
 
-        return Response(diagrama)
+        return Response(diagrama.to_dict())
 
     
        

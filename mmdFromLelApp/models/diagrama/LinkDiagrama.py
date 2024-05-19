@@ -14,14 +14,22 @@ class LinkDiagrama:
         
     @classmethod
     def nuevoHecho(self, desde, hasta):
-        return LinkDiagrama(desde, hasta,  TipoLinkDiagrama.ARCO_SIMPLE)
+        return LinkDiagrama(desde, hasta,  TipoLinkDiagrama.ARCO_SIMPLE.value)
 
 
     @classmethod
     def nuevoLinkOpcional(self, desde, hasta):
-        return LinkDiagrama(desde, hasta,  TipoLinkDiagrama.ARCO_OPCIONAL)
+        return LinkDiagrama(desde, hasta,  TipoLinkDiagrama.ARCO_OPCIONAL.value)
 
 
     @classmethod
     def nuevoLinkMultiple(self, desde, hasta):
-        return LinkDiagrama(desde, hasta,  TipoLinkDiagrama.ARCO_MULTIPLE)    
+        return LinkDiagrama(desde, hasta,  TipoLinkDiagrama.ARCO_MULTIPLE.value)
+    
+
+    def to_dict(self):
+            return {
+                'desde':self.desde,
+                'hasta':self.hasta,
+                'tipoLink':self.tipoLink
+            }

@@ -34,17 +34,12 @@ de dos atributos: la noción y los impactos'''
     def devolverDocNotion(self, nlp) -> Doc:
         return self.datosParaProceso.miDocNotion(nlp, self.nocion)
 
-    def terminadoDeProcesarVerbo(self):
-        self.datosParaProceso.nuevoVerbo()
-
-    def terminadoDeProcesarNivel(self, posicion):
-        self.datosParaProceso.nuevoNivel(posicion)
-
-    def terminadoDeProcesarPropiedad(self, posicion):
-        self.datosParaProceso.nuevaPropiedad(posicion)
-
+    
     def estaProcesado(self):
         return self.datosParaProceso.procesadoLel
+    
+    def terminadoDeProcesar(self):
+        self.datosParaProceso.procesadoLel = True
 
     def actualizarPosicionDiagrama(self, posicion):
         self.datosParaProceso.nuevaPosicionDiagrama(posicion)
@@ -56,9 +51,19 @@ de dos atributos: la noción y los impactos'''
         return self.datosParaProceso.calcularPosicionProximoNodo()
     
 
+    def terminadoDeProcesarVerbo(self):
+        self.datosParaProceso.nuevoVerbo()
+
+    def terminadoDeProcesarPropiedad(self):
+        self.datosParaProceso.nuevaPropiedad()
+
+
+    def terminadoDeProcesarMedida(self):
+        self.datosParaProceso.nuevaMedidaEnVerbo()
+
     def __str__(self):
-        return f"Lel(atributo1={self.categoria}, atributo2={self.simbolo}"
+        return f"Lel(atributo1={self.categoria}, atributo2={self.simbolo}) "
     
 
     def __repr__(self) -> str:
-        return f"Lel(atributo1={self.categoria}, simbolo={self.simbolo}"
+        return f"Lel(atributo1={self.categoria}, simbolo={self.simbolo}) "

@@ -77,6 +77,13 @@ either privately or commercially. A car has a model.''')
         
 
         lel10 = Lel(Categoria.OBJETO, 'Factory', '''A place where cars are manufactured''')
-        lels = [lel1,lel2,lel3,lel4,lel5, lel6, lel7, lel8, lel9, lel10]
+        
+        
+        lel11 = Lel(Categoria.OBJETO, 'Engine capacity', 
+                    '''The engine displacement or size. 
+        It is the measurement of the total volume of the cylinders normally expressed in cubic centimeters or litres, e.g., 1800 cc''')
+        
+        
+        lels = [lel1,lel2,lel3,lel4,lel5, lel6, lel7, lel8, lel9, lel10, lel11]
         return lels 
 

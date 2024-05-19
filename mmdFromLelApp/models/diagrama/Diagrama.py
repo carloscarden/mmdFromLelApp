@@ -13,12 +13,33 @@ class Diagrama:
     def __init__(self, objetosDelDiagrama: List[ObjetoDiagrama], linksDelDiagrama: List[LinkDiagrama]):
         self.objetosDelDiagrama= objetosDelDiagrama
         self.linksDelDiagrama= linksDelDiagrama
+    
+    def nuevoHechoDelDiagrama(self, lelVerboSimbolo, posicionNueva):
+        nuevoHecho = ObjetoDiagrama.nuevoHecho(lelVerboSimbolo, posicionNueva)
+        self.objetosDelDiagrama.append(nuevoHecho)
 
+    def nuevoObjetoMedidaDeVerboDelDiagrama(self, lelMedidaSimbolo, verboLelSimbolo):
+        nuevaMedida = ObjetoDiagrama.nuevaMedida(lelMedidaSimbolo, verboLelSimbolo)
+        self.objetosDelDiagrama.append(nuevaMedida)
+    
+    def nuevoObjetoDimensionDelDiagrama(self, lelDimensionSimbolo, verboLelSimbolo, posicionNueva):
+        nuevaDimension = ObjetoDiagrama.nuevaDimension(lelDimensionSimbolo, verboLelSimbolo, posicionNueva)
+        self.objetosDelDiagrama.append(nuevaDimension)
+    
+    def nuevoObjetoNivelDelDiagrama(self, lelNivelSimbolo, sujetoSimbolo, posicionNueva):
+        nuevoNivel = ObjetoDiagrama.nuevoNivel(lelNivelSimbolo, sujetoSimbolo, posicionNueva)
+        self.objetosDelDiagrama.append(nuevoNivel)
 
-    def nuevoObjetoDelDiagrama(self, objetoDelDiagrama):
-        self.objetosDelDiagrama.append(objetoDelDiagrama)
+    def nuevoObjetoPropiedadDelDiagrama(self, lelSimbolo, sujetoSimbolo, posicionNueva):
+        nuevaPropiedad = ObjetoDiagrama.nuevaPropiedad(lelSimbolo, sujetoSimbolo, posicionNueva)
+        self.objetosDelDiagrama.append(nuevaPropiedad)
 
-
+    def nuevoObjetoOpcionalDelDiagrama(self, lelSimbolo, sujetoSimbolo, posicionNueva):
+        nuevoObjetoOpcional = ObjetoDiagrama.nuevoLelOpcional(lelSimbolo, sujetoSimbolo, posicionNueva)
+        self.objetosDelDiagrama.append(nuevoObjetoOpcional)
+    
+    
+    
     def nuevoLinkDelDiagrama(self, linkDelDiagrama):
         self.linksDelDiagrama.append(linkDelDiagrama)
 
@@ -27,3 +48,8 @@ class Diagrama:
             nuevoLink = LinkDiagrama(desdeExpresion, lel.simbolo)
             self.linksDelDiagrama.append(nuevoLink)
 
+    def to_dict(self):
+            return {
+                'objetosDelDiagrama': [objeto.to_dict() for objeto in self.objetosDelDiagrama],
+                'linksDelDiagrama': [link.to_dict() for link in self.linksDelDiagrama]
+            }

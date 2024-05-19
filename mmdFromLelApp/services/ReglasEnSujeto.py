@@ -27,9 +27,6 @@ class ReglasEnSujeto(Reglas):
 
         encontradoEnSujeto = EncontradoEnNotionSujeto([],[], [], [])
 
-        encontradoEnSujeto.optionalArcs = self.buscarPosiblesArcosOpcional(doc)
-
-
         for token in doc:
             esCompuesta = self.fraseCompuesta(token, doc, target_words)
             if token.text in target_words or esCompuesta:
@@ -61,6 +58,16 @@ class ReglasEnSujeto(Reglas):
                     # Find noun chunks that contain the object
                     noun_chunk = next((nc for nc in doc.noun_chunks if nc.root == obj[0] ), None)
                     self.procesarNounChunk(encontradoEnSujeto, noun_chunk)
+        
+            #      REGLA 7 
+            # deals with expressions of possibility. Although simple analysis
+            # could be made using a glossary of modal auxiliaries (e.g., may, might, could,
+            # would, should), a more complete analysis would require some epistemic
+            # expressions
+            if token.tag_ == 'MD':
+                for descendant in token.head.subtree:
+                    if descendant.dep_ in ['dobj', 'attr', 'pobj', 'conj']:
+                        encontradoEnSujeto.nuevoOptionalArc(descendant.text) 
         return encontradoEnSujeto
 
 
@@ -82,15 +89,28 @@ class ReglasEnSujeto(Reglas):
 
     def procesarElSujeto(self, encontradoEnSujeto: EncontradoEnNotionSujeto, lelMockeado: List[Lel]) -> ProcesadoEnSujeto:
 
-        procesadoEnSujeto = ProcesadoEnSujeto([],[], [])
+        procesadoEnSujeto = ProcesadoEnSujeto([],[], [], [])
+        self.procesarLosArcosOpcionales(procesadoEnSujeto, encontradoEnSujeto.optionalArcs, lelMockeado)
         self.procesarLosObjectsSimples(procesadoEnSujeto, encontradoEnSujeto.objectsSimple, lelMockeado)
         self.procesarLosPalabraDoble(procesadoEnSujeto, encontradoEnSujeto.nounChunks, lelMockeado)
 
         return procesadoEnSujeto
 
+    def procesarLosArcosOpcionales(self, procesadoEnSujeto: ProcesadoEnSujeto, 
+                                   arcosOpcionales: List[str], lelMockeado: List[Lel]):
+        
+        for simbolo in arcosOpcionales:
+            aBuscar = simbolo.lower()
+
+            lelDeSujetoAprocesar = list( filter( lambda lel: self.esLelBuscado(lel, aBuscar) , 
+                                           lelMockeado))
+
+            if(lelDeSujetoAprocesar):
+                procesadoEnSujeto.nuevoLelOpcional(lelDeSujetoAprocesar[0])
+
 
     def procesarLosObjectsSimples(self, procesadoEnSujeto: ProcesadoEnSujeto, 
-                                   objectsSimple, lelMockeado):
+                                   objectsSimple: List[Token], lelMockeado: List[Lel]):
         
 
         for simbolo in objectsSimple:
@@ -103,12 +123,7 @@ class ReglasEnSujeto(Reglas):
 
 
     def procesarLosPalabraDoble(self, procesadoEnSujeto, nounChunks, lelMockeado):
-        print("ES PALABRA DOBLE")
         for nc in nounChunks:
-            
-            completo = " ".join([ n.text for n in nc]).strip()
-            print("completo")
-            print(completo)
             lelDeSujetoAprocesar = list( filter( lambda lel: self.esLelBuscadoCompuesto(lel, nc) , 
                                            lelMockeado))
             self.tipoDeLelQueEsElSujeto(lelDeSujetoAprocesar, procesadoEnSujeto)                               
@@ -117,14 +132,13 @@ class ReglasEnSujeto(Reglas):
     def tipoDeLelQueEsElSujeto(self, lelDeSujetoAprocesar:List[Lel], procesadoEnSujeto: ProcesadoEnSujeto):
         
         if lelDeSujetoAprocesar :
-            doc = nlp(lelDeSujetoAprocesar[0].simbolo)
+            doc = lelDeSujetoAprocesar[0].devolverDocNotion(nlp)
             medidas = [tok.text for tok in doc if self.es_medida(tok.text)]
             if(len(medidas)>0):
-                     #Rule 5. 
+                     #REGLA 5. 
                 # Numerical objects and subjects of objects or subjects give origin to properties.
                 # buscar entre los objetos y sujetos del notion un objeto numerico
                 procesadoEnSujeto.nuevoLelDePropiedad(lelDeSujetoAprocesar[0])
-                lelDeSujetoAprocesar[0].terminadoDeProcesarPropiedad(0)
             else:
                     # REGLA 4
                 # Categorical objects and subjects of objects or subjects give origin to levels
@@ -132,47 +146,9 @@ class ReglasEnSujeto(Reglas):
                 procesadoEnSujeto.nuevoLelDeNivel(lelDeSujetoAprocesar[0])
                 if(not lelDeSujetoAprocesar[0].estaProcesado):
                     procesadoEnSujeto.nuevoLelDeNivelNoProcesado(lelDeSujetoAprocesar[0])
-                    lelDeSujetoAprocesar[0].terminadoDeProcesarNivel()
 
 
 
-    def buscarPosiblesArcosOpcional(self, doc: Doc)-> List[str]:
-
-        '''
-        If the docNotion  used in n to relate o with o′ suggests that some instances
-of o may not be associated to every instance of o′, then the arc from o to o′ is an optional one.
-        '''    
-           #         Rule 7 deals with expressions of possibility. Although simple analysis
-            #could be made using a glossary of modal auxiliaries (e.g., may, might, could,
-            #would, should), a more complete analysis would require some epistemic
-            #expressions
-        
-        ''' 
-        We check for adjectives with the dependency label "amod" (adjectival modifier)
-          and part-of-speech tag "JJ", "JJR", or "JJS" 
-          (adjective, comparative adjective, or superlative adjective). 
-        We also check if the adjective has a determiner (such as "the" or "a") to its right. 
-        If these conditions are met, we append the head noun of the adjective 
-        (i.e., the noun that the adjective modifies) to the optional_nouns list.
-
-        We also keep the original check for nominal subjects, 
-        which will capture the subject nouns in the sentence.
-
-        When we run this code with the example sentence ç
-        "A client can be described by gender. Or, a client can be described by age.", 
-        the output will be ['client', 'gender', 'client', 'age'], 
-        indicating that "client" and "gender" are the nouns that express an optional attribute, 
-        and "client" and "age" are the subject nouns in the sentence.
-        
-        '''
-
-        optional_nouns = []
-        for token in doc:
-            if token.dep_ == "amod" and token.tag_ in ["JJ", "JJR", "JJS"] and any(pos.tag_ == "DT" for pos in token.rights):
-                optional_nouns.append(token.head.text)
-            elif token.dep_ == "nsubj" and token.tag_ in ["NN", "NNS", "NNP", "NNPS"]:
-                optional_nouns.append(token.text)
-        return optional_nouns    
 
 
 

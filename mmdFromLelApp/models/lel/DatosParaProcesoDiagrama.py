@@ -20,6 +20,36 @@ class DatosParaProcesoDiagrama:
 
         self.anguloProximoNodo = 30
 
+
+    def miDocNotion(self, nlp: Language, nocion)-> Doc:
+        if(self.docNotion):
+            return self.docNotion
+        else:
+            self.docNotion =nlp(nocion)
+            return self.docNotion
+ 
+    def nuevoVerbo(self):
+        self.procesadoLel = True
+        self.tipoObjetoDiagrama = TipoObjetoDiagrama.HECHO
+    
+    def nuevaPropiedad(self):
+        self.procesadoLel = True
+        self.tipoObjetoDiagrama = TipoObjetoDiagrama.PROPIEDAD
+
+    def nuevoNivel(self):
+        self.tipoObjetoDiagrama = TipoObjetoDiagrama.NIVEL
+
+    def nuevaMedidaEnVerbo(self):
+        self.procesadoLel = True
+        self.tipoObjetoDiagrama = TipoObjetoDiagrama.MEDIDA
+
+    def nuevoArcoOpcional(self):
+        self.procesadoLel = True
+        self.tipoObjetoDiagrama = TipoObjetoDiagrama.ARCO_OPCIONAL
+
+    def nuevaPosicionDiagrama(self, posicion):
+        self.posicionDiagrama = posicion
+
     def calcularPosicionProximoNodo(self):
         '''
         Para encontrar el punto en el círculo que corresponde a un ángulo de 30°, 
@@ -35,39 +65,12 @@ class DatosParaProcesoDiagrama:
         self.anguloProximoNodo  = self.anguloProximoNodo+30 
         return (posicionX, posicionY)
 
+
+    def calcularPosicionProximoNodoParaVerbo(self):
+        return (0,0)
+
     def calcularPosicionX(self):
-        
         pass
 
     def calcularPosicionY(self):
         pass
-
-    
-    def calcularPosicionProximoNodoParaVerbo(self):
-        return 0
-
-    
-    def miDocNotion(self, nlp: Language, nocion)-> Doc:
-        if(self.docNotion):
-            return self.docNotion
-        else:
-            self.docNotion =nlp(nocion)
-            return self.docNotion
- 
-
-    def nuevoVerbo(self):
-        self.procesadoLel = True
-        self.tipoObjetoDiagrama = TipoObjetoDiagrama.HECHO
-
-    def nuevoNivel(self, posicion):
-        self.procesadoLel = True
-        self.tipoObjetoDiagrama = TipoObjetoDiagrama.NIVEL
-        self.posicionDiagrama = posicion
-
-    def nuevaPropiedad(self, posicion):
-        self.procesadoLel = True
-        self.tipoObjetoDiagrama = TipoObjetoDiagrama.PROPIEDAD
-        self.posicionDiagrama = posicion
-
-    def nuevaPosicionDiagrama(self, posicion):
-        self.posicionDiagrama = posicion

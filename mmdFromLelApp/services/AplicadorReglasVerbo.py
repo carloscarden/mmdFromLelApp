@@ -34,7 +34,7 @@ class AplicadorDeReglasVerbo():
             procesadoEnVerbo = self.reglasVerbo.procesarElVerbo(sujetosYObjetosDeVerbo, lels, v)
 
 
-            self.diagramasEnVerbo.generarObjetosDelDiagramaPorVerbo(procesadoEnVerbo, v.simbolo)
+            self.diagramasEnVerbo.generarObjetosDelDiagramaPorVerbo(procesadoEnVerbo, v)
             
             v.terminadoDeProcesarVerbo()
             self.diagramasEnVerbo.actualizarPosicionVerbo()
