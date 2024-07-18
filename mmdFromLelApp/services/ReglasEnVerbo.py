@@ -37,7 +37,7 @@ class ReglasEnVerbo(Reglas):
                                            lelMockeado))
             if lelDeVerboAprocesar:
                 doc =lelDeVerboAprocesar[0].devolverDocNotion(nlp)
-                medidas = [tok.text for tok in doc if self.es_medida(tok.text)]
+                medidas = self.es_medida(doc)
                 if(len(medidas)>0):
 
                         # REGLA 2

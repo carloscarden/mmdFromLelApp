@@ -118,6 +118,7 @@ class ReglasEnSujeto(Reglas):
 
             lelDeSujetoAprocesar = list( filter( lambda lel: self.esLelBuscado(lel, aBuscar) , 
                                            lelMockeado))
+            
             self.tipoDeLelQueEsElSujeto(lelDeSujetoAprocesar, procesadoEnSujeto)                               
 
 
@@ -133,7 +134,8 @@ class ReglasEnSujeto(Reglas):
         
         if lelDeSujetoAprocesar :
             doc = lelDeSujetoAprocesar[0].devolverDocNotion(nlp)
-            medidas = [tok.text for tok in doc if self.es_medida(tok.text)]
+            medidas = self.es_medida(doc)
+
             if(len(medidas)>0):
                      #REGLA 5. 
                 # Numerical objects and subjects of objects or subjects give origin to properties.

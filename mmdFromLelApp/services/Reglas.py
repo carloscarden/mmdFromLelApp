@@ -26,27 +26,32 @@ class Reglas:
         return objetos_y_sujetos
 
 
-    def es_medida(self, palabra):
-        sinonimos = set()
-        '''
-    En Spacy, lemma_ es un atributo de los tokens que devuelve la forma base o lema de la palabra. 
-    Es decir, la forma canónica de la palabra a la que pertenece el token, sin conjugaciones verbales,
-      ni desinencias de género o número en sustantivos y adjetivos.
+    def es_medida(self, doc):
+        # Lista de palabras para buscar en inglés
+        palabras_buscar = ["amount", "size", "height", "measure", "measurement"]
+        for token in doc:
+            # Verificar si el token está en nuestra lista de palabras y es relevante
+            if token.text.lower() in palabras_buscar and self.es_palabra_relevante(token):
+                # Buscar sus hijos en el árbol de dependencias
+                for hijo in token.children:
+                    # Verificar si el hijo es un complemento del nombre o una preposición
+                    if hijo.dep_ in ["nmod", "prep", "relcl", "pobj"]:
+                        return self.obtener_complemento_completo(hijo)
+        
+        # Si no se encuentra ningún complemento válido
+        return []
 
-    Por ejemplo, el lemma de los verbos "corrió", "corremos", "corriendo" y "correrán" es "correr". 
-    El lemma de los sustantivos "autos", "automóviles" y "coches" es "auto". 
-    Esto es útil para llevar a cabo análisis de texto, ya que a menudo queremos agrupar diferentes 
-    formas de la misma palabra en una sola categoría o término.
-    '''
-        for syn in wordnet.synsets(palabra, lang='eng'):
-            for lemma in syn.lemmas(lang='eng'):
-                sinonimos.add(lemma.name())
-        sinonimos.add(palabra)
-        medidas = {'amount', 'size', 'capacity',
-                  'volume', 'length', 'width', 'dose',
-                  'amplitude', 'density', 'extension'}
-        return any(medida in sinonimos for medida in medidas)
-
+    def es_palabra_relevante(self, token):
+        # Verifica si el token es un sustantivo 
+        # considere palabras que sean la raíz de la oración o hijos directos de la raíz
+        return token.pos_ == "NOUN" and (token.dep_ in ["nsubj", "nsubjpass", "ROOT"] or token.head.pos_ == "ROOT")
+    
+    def obtener_complemento_completo(self, token):
+        complemento = []
+        for hijo in token.subtree:
+            if hijo != token:
+                complemento.append(hijo.text)
+        return ' '.join(complemento)
 
     def fraseCompuesta(self, token: Token, doc: Doc, target_words: List[str]) -> bool:
         if token.i < len(doc) - 1:
@@ -61,7 +66,7 @@ class Reglas:
 
 
     def esLelBuscadoCompuesto(self, unLel: Lel, simboloAbuscar):
-        completo = " ".join([ n.text for n in simboloAbuscar]).strip()
+        completo = "".join([ n.text for n in simboloAbuscar]).strip().replace(",","").replace("\n"," ")
         ultimo  = simboloAbuscar[-1].text.strip()
         return ( unLel.simbolo.lower().strip() ==  completo.lower() and unLel.categoria != Categoria.VERBO ) or \
                ( unLel.simbolo.lower().strip() ==  ultimo.lower() and unLel.categoria != Categoria.VERBO )

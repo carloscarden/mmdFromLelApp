@@ -22,4 +22,14 @@ class EncontradoEnNotionSujeto:
         self.pluralChunks.append(nuevoPlural)    
     
     def nuevoOptionalArc(self, objectSimple: str):
-        self.optionalArcs.append(objectSimple)    
+        self.optionalArcs.append(objectSimple)  
+
+      
+    def __str__(self):
+        return f'''EncontradoEnSujeto(NounChunks={self.nounChunks}, objectSimple={self.objectsSimple},
+                pluralChunks={self.pluralChunks},optionalArcs={self.optionalArcs}) '''
+    
+
+    def __repr__(self) -> str:
+        return f'''EncontradoEnSujeto(NounChunks={self.nounChunks}, objectSimple={self.objectsSimple},
+                pluralChunks={self.pluralChunks},optionalArcs={self.optionalArcs}) '''
