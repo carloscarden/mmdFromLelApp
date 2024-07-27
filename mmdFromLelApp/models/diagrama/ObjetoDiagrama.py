@@ -5,7 +5,7 @@ class ObjetoDiagrama:
     """Del diagrama representa toda la informacion para saber qué dibujar"""
     i = 12345
 
-    def __init__(self, simbolo, aQuienPertenece, categoria, posicionX = 0 ,posicionY = 0):
+    def __init__(self, simbolo, aQuienPertenece, categoria = '', posicionX = 0 ,posicionY = 0):
         self.key = simbolo
         self.prop1= aQuienPertenece
         self.category= categoria
@@ -15,6 +15,9 @@ class ObjetoDiagrama:
     @classmethod
     def nuevoHecho(self, simbolo, posicion):
         return ObjetoDiagrama(simbolo, '',  TipoObjetoDiagrama.HECHO.value, posicion[0], posicion[1])
+
+    def nuevaMedidaDeVerbo(self, simbolo):
+        self.prop1 +=simbolo + ", "
     
     @classmethod
     def nuevaMedida(self, simbolo, aQuienPertenece):

@@ -14,13 +14,11 @@ class Diagrama:
         self.objetosDelDiagrama= objetosDelDiagrama
         self.linksDelDiagrama= linksDelDiagrama
     
-    def nuevoHechoDelDiagrama(self, lelVerboSimbolo, posicionNueva):
+    def nuevoHechoDelDiagrama(self, lelVerboSimbolo, posicionNueva) -> ObjetoDiagrama:
         nuevoHecho = ObjetoDiagrama.nuevoHecho(lelVerboSimbolo, posicionNueva)
         self.objetosDelDiagrama.append(nuevoHecho)
+        return nuevoHecho
 
-    def nuevoObjetoMedidaDeVerboDelDiagrama(self, lelMedidaSimbolo, verboLelSimbolo):
-        nuevaMedida = ObjetoDiagrama.nuevaMedida(lelMedidaSimbolo, verboLelSimbolo)
-        self.objetosDelDiagrama.append(nuevaMedida)
     
     def nuevoObjetoDimensionDelDiagrama(self, lelDimensionSimbolo, verboLelSimbolo, posicionNueva):
         nuevaDimension = ObjetoDiagrama.nuevaDimension(lelDimensionSimbolo, verboLelSimbolo, posicionNueva)

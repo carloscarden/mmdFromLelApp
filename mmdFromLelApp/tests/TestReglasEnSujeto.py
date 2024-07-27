@@ -18,6 +18,7 @@ class TestReglasEnSujeto(TestCase):
 
         # Encontrar todos los Categorical objects and subjects del sujeto
         encontradoEnSujeto  = self.reglasSujeto.encontrarLosObjetosCategoricosDeSujetos(sujeto)
+        print(encontradoEnSujeto)
 
         #apply Rule 4 to o, get set Cl of levels, add them to l as children levels
         #apply Rule 5 to o, get set Pl of properties, add them to l as children levels
@@ -26,34 +27,34 @@ class TestReglasEnSujeto(TestCase):
 
     def testRecuperarNiveles(self):
 
-            '''Categorical objects and subjects of objects or subjects give origin to levels
-            
-            entrada: Model
-            salida:  [segment]
-            '''
-
-            sujeto = Lel(Categoria.SUJETO, 'Model', '''A car design that belongs to one segment. A model has an engine
-    capacity and is manufactured in one or more factories''' )
-            
-            procesadoEnSujeto = self.procesarSujeto(sujeto)
-
-
-            niveles = procesadoEnSujeto.lelsDeNivel
-
-            print("")
-            print("              TEST RECUPERAR NIVELES!!!")
-            try:
-                nivelesQueTieneQueDevolver = ['segment']
+                '''Categorical objects and subjects of objects or subjects give origin to levels
                 
-                print(niveles)            
-                # Comprueba que todos los simbolos en hechosQueTieneQueDevolver están en resultado
-                for s in nivelesQueTieneQueDevolver:
-                    self.assertTrue(any(oa.simbolo.lower() == s.lower() for oa in niveles))
-                print("TEST OK RECUPERAR NIVELES!!!")
-            except AssertionError:
-                print("ERROR!!!")
-            finally:
-                print("**************************************************")  
+                entrada: Model
+                salida:  [segment]
+                '''
+
+                sujeto = Lel(Categoria.SUJETO, 'Model', '''A car design that belongs to one segment. A model has an engine
+        capacity and is manufactured in one or more factories''' )
+                
+                procesadoEnSujeto = self.procesarSujeto(sujeto)
+
+
+                niveles = procesadoEnSujeto.lelsDeNivel
+
+                print("")
+                print("              TEST RECUPERAR NIVELES!!!")
+                try:
+                    nivelesQueTieneQueDevolver = ['segment']
+                    
+                    print(niveles)            
+                    # Comprueba que todos los simbolos en hechosQueTieneQueDevolver están en resultado
+                    for s in nivelesQueTieneQueDevolver:
+                        self.assertTrue(any(oa.simbolo.lower() == s.lower() for oa in niveles))
+                    print("TEST OK RECUPERAR NIVELES!!!")
+                except AssertionError:
+                    print("ERROR!!!")
+                finally:
+                    print("**************************************************")  
 
 
     def testRecuperarProperties(self):
@@ -112,7 +113,6 @@ class TestReglasEnSujeto(TestCase):
             finally:
                 print("**************************************************")
 
-
     def testRecuperarMultipleArcs(self):
 
             '''Plural objects and subjects give origin to multiple arcs
@@ -126,19 +126,8 @@ class TestReglasEnSujeto(TestCase):
     capacity and is manufactured in one or more factories''' )
 
 
-            niveles = self.procesarSujeto(sujeto).lelsDeNivel
-
-
-            # Encontrar todos los Categorical objects and subjects del verbo
-            encontradoEnSujeto  = self.reglasSujeto.encontrarLosObjetosCategoricosDeSujetos(sujeto)
-
-
-            multipleArcs = []
-            for nivel in niveles:
-                if (  any(pc == nivel.simbolo for pc in encontradoEnSujeto.pluralChunks) ):
-                    # apply Rule 7 to o and o′, possibly change the arc from l to l′to optional
-                    multipleArcs.append(nivel)
-
+            multipleArcs = self.procesarSujeto(sujeto).lelsArcosMultiples
+            print(self.procesarSujeto(sujeto))
 
             print("")
             print("              TEST RECUPERAR MULTIPLE ARCS!!!")

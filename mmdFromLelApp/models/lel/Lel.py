@@ -1,6 +1,10 @@
+from mmdFromLelApp.models.diagrama.DiagramasEnVerbo import DiagramasEnVerbo
 from mmdFromLelApp.models.diagrama.TipoObjetoDiagrama import TipoObjetoDiagrama
+from mmdFromLelApp.models.lel.DatosParaPosicionDiagrama import DatosParaPosicionDiagrama
 from mmdFromLelApp.models.lel.DatosParaProcesoDiagrama import DatosParaProcesoDiagrama
 from spacy.tokens import Doc
+
+from mmdFromLelApp.models.lel.CalculadorPosicionVerbo import CalculadorPosicionVerbo
 
 
 
@@ -27,13 +31,15 @@ de dos atributos: la noción y los impactos'''
 
         self.datosParaProceso = DatosParaProcesoDiagrama()
         '''
-        Datos necesarios para la construccion del diagrama
+        Datos necesarios para el procesamiento del diagrama'''
+
+        self.datosParaPosicionDiagrama = DatosParaPosicionDiagrama()
         '''
+        Datos necesarios para la construccion del nodo '''
 
 
     def devolverDocNotion(self, nlp) -> Doc:
         return self.datosParaProceso.miDocNotion(nlp, self.nocion)
-
     
     def estaProcesado(self):
         return self.datosParaProceso.procesadoLel
@@ -42,24 +48,35 @@ de dos atributos: la noción y los impactos'''
         self.datosParaProceso.procesadoLel = True
 
     def actualizarPosicionDiagrama(self, posicion):
-        self.datosParaProceso.nuevaPosicionDiagrama(posicion)
+        self.datosParaPosicionDiagrama.nuevaPosicionDiagrama(posicion)
+
+
+    def actualizarPosicionDiagramaVerbo(self, diagrama: DiagramasEnVerbo):
+        calculadorPosicionVerbo = CalculadorPosicionVerbo(diagrama.esquinasVerbo())
+        self.datosParaPosicionDiagrama.nuevoCalculadorPosicionVerbo(calculadorPosicionVerbo)
+        self.datosParaPosicionDiagrama.nuevaPosicionDiagrama(diagrama.posicionVerbo)
 
     def getPosicionParaNodoDeVerbo(self):
-        return self.datosParaProceso.calcularPosicionProximoNodoParaVerbo()
+        return self.datosParaPosicionDiagrama.calcularPosicionProximoNodoParaVerbo()
 
     def getPosicionParaNodoDeSujeto(self):
-        return self.datosParaProceso.calcularPosicionProximoNodo()
+        return self.datosParaPosicionDiagrama.calcularPosicionProximoNodo()
     
-
     def terminadoDeProcesarVerbo(self):
         self.datosParaProceso.nuevoVerbo()
 
     def terminadoDeProcesarPropiedad(self):
         self.datosParaProceso.nuevaPropiedad()
 
+    def terminadoDeDibujarNodo(self):
+        self.datosParaProceso.terminadoDeDibujarNodo()
 
     def terminadoDeProcesarMedida(self):
         self.datosParaProceso.nuevaMedidaEnVerbo()
+
+
+    def estaDibujado(self):
+        self.datosParaProceso.estaDibujado()
 
     def __str__(self):
         return f"Lel(atributo1={self.categoria}, atributo2={self.simbolo}) "

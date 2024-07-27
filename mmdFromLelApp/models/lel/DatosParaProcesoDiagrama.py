@@ -8,9 +8,12 @@ class DatosParaProcesoDiagrama:
 
     i = 12345
 
-    def __init__(self, procesado: bool = None, docNotion: Doc = None, unTipoObjetoDiagrama: str = None, unaPosicionDiagrama = None):
+    def __init__(self, procesado: bool = False, docNotion: Doc = None, 
+                 unTipoObjetoDiagrama: str = None, unaPosicionDiagrama = None):
         # si el lel se proceso o no
         self.procesadoLel = procesado
+
+        self.creadoEnDiagrama = False
 
         self.docNotion = docNotion
 
@@ -74,3 +77,9 @@ class DatosParaProcesoDiagrama:
 
     def calcularPosicionY(self):
         pass
+
+    def terminadoDeDibujarNodo(self):
+        self.creadoEnDiagrama = True
+
+    def estaDibujado(self):
+        return self.creadoEnDiagrama

@@ -77,7 +77,7 @@ class ReglasEnSujeto(Reglas):
 
         for nc in noun_chunk:
             if(nc.tag_ in ["NNS", "NNPS"]):
-                encontradoEnSujeto.nuevoPlural(nc)
+                encontradoEnSujeto.nuevoPlural(nc.lemma_)
                 return
         sinPreposiciones = [t for t in noun_chunk if t.text.lower() not in stop_words]
         if(len(sinPreposiciones) > 1):
@@ -89,10 +89,11 @@ class ReglasEnSujeto(Reglas):
 
     def procesarElSujeto(self, encontradoEnSujeto: EncontradoEnNotionSujeto, lelMockeado: List[Lel]) -> ProcesadoEnSujeto:
 
-        procesadoEnSujeto = ProcesadoEnSujeto([],[], [], [])
+        procesadoEnSujeto = ProcesadoEnSujeto([],[], [], [], [])
         self.procesarLosArcosOpcionales(procesadoEnSujeto, encontradoEnSujeto.optionalArcs, lelMockeado)
         self.procesarLosObjectsSimples(procesadoEnSujeto, encontradoEnSujeto.objectsSimple, lelMockeado)
         self.procesarLosPalabraDoble(procesadoEnSujeto, encontradoEnSujeto.nounChunks, lelMockeado)
+        self.procesarLosPlurales(procesadoEnSujeto, encontradoEnSujeto.pluralChunks, lelMockeado)
 
         return procesadoEnSujeto
 
@@ -122,12 +123,19 @@ class ReglasEnSujeto(Reglas):
             self.tipoDeLelQueEsElSujeto(lelDeSujetoAprocesar, procesadoEnSujeto)                               
 
 
-
     def procesarLosPalabraDoble(self, procesadoEnSujeto, nounChunks, lelMockeado):
         for nc in nounChunks:
             lelDeSujetoAprocesar = list( filter( lambda lel: self.esLelBuscadoCompuesto(lel, nc) , 
                                            lelMockeado))
             self.tipoDeLelQueEsElSujeto(lelDeSujetoAprocesar, procesadoEnSujeto)                               
+
+
+    def procesarLosPlurales(self, procesadoEnSujeto: ProcesadoEnSujeto, pluralChunks, lelMockeado):
+        for pc in pluralChunks:
+            lelDeSujetoAprocesar = list( filter( lambda lel: self.esLelBuscado(lel, pc) , 
+                                           lelMockeado))
+            if(lelDeSujetoAprocesar):
+                procesadoEnSujeto.nuevoLelMultiple(lelDeSujetoAprocesar[0])
 
 
     def tipoDeLelQueEsElSujeto(self, lelDeSujetoAprocesar:List[Lel], procesadoEnSujeto: ProcesadoEnSujeto):
@@ -144,7 +152,7 @@ class ReglasEnSujeto(Reglas):
             else:
                     # REGLA 4
                 # Categorical objects and subjects of objects or subjects give origin to levels
-                # Si no cae en la categoria de medida, entonces es un categorico del verbo
+                # Si no cae en la categoria de medida, entonces es un nivel del sujeto
                 procesadoEnSujeto.nuevoLelDeNivel(lelDeSujetoAprocesar[0])
                 if(not lelDeSujetoAprocesar[0].estaProcesado):
                     procesadoEnSujeto.nuevoLelDeNivelNoProcesado(lelDeSujetoAprocesar[0])
