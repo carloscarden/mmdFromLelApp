@@ -33,3 +33,11 @@ class LinkDiagrama:
                 'hasta':self.hasta,
                 'tipoLink':self.tipoLink
             }
+
+
+    def __str__(self):
+        return f"Link(desde={self.desde}, hasta={self.hasta}, tipoLink={self.tipoLink}) "
+    
+
+    def __repr__(self) -> str:
+        return f"Link(desde={self.desde}, hasta={self.hasta}, tipoLink={self.tipoLink}) "

@@ -5,7 +5,7 @@ class ObjetoDiagrama:
     """Del diagrama representa toda la informacion para saber qué dibujar"""
     i = 12345
 
-    def __init__(self, simbolo, aQuienPertenece, categoria = '', posicionX = 0 ,posicionY = 0):
+    def __init__(self, simbolo: str, aQuienPertenece: str, categoria = '', posicionX = 0 ,posicionY = 0):
         self.key = simbolo
         self.prop1= aQuienPertenece
         self.category= categoria
@@ -47,3 +47,12 @@ class ObjetoDiagrama:
                 'posicionX': self.posicionX,
                 'posicionY': self.posicionY
             }
+
+
+    
+    def __str__(self):
+        return f"Objeto(key={self.key}, prop1={self.prop1}, category={self.category} , posicion={self.posicionX, self.posicionY})"
+    
+
+    def __repr__(self) -> str:
+        return f"Objeto(key={self.key}, prop1={self.prop1}, category={self.category}, posicion={self.posicionX, self.posicionY})"

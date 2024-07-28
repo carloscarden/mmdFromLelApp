@@ -23,7 +23,7 @@ class AplicadorDeReglasVerbo():
 
             # v should be defined as a fact
             hecho = self.diagramasEnVerbo.nuevoHecho(v)
-            v.actualizarPosicionDiagramaVerbo(self.diagramasEnVerbo)
+            v.actualizarPosicionDiagramaVerbo(self.diagramasEnVerbo.esquinasVerbo(),self.diagramasEnVerbo.posicionVerbo)
 
             # Encontrar todos los Categorical objects and subjects del verbo
             sujetosYObjetosDeVerbo = self.reglasVerbo.encontrarObjetosYsujetosDeVerbo(v.nocion)

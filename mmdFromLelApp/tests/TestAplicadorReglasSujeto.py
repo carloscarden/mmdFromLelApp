@@ -78,7 +78,7 @@ class TestAplicadorReglasSujeto(TestCase):
         try:
             # Comprueba que todos los simbolos en hechosQueTieneQueDevolver están en resultado
             for s in linksQueTieneQueDevolver:
-                self.assertTrue(any(oa.simbolo.lower() == s.lower() for oa in linksDevueltos))
+                self.assertTrue(any(oa.desde.lower() == s.desde.lower()  for oa in linksDevueltos))
                 print("TEST OK RECUPERAR NODOS DEL SUJETO!!!")
             print("TODO BIEN")
         except AssertionError:

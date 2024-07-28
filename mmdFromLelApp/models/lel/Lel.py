@@ -1,4 +1,3 @@
-from mmdFromLelApp.models.diagrama.DiagramasEnVerbo import DiagramasEnVerbo
 from mmdFromLelApp.models.diagrama.TipoObjetoDiagrama import TipoObjetoDiagrama
 from mmdFromLelApp.models.lel.DatosParaPosicionDiagrama import DatosParaPosicionDiagrama
 from mmdFromLelApp.models.lel.DatosParaProcesoDiagrama import DatosParaProcesoDiagrama
@@ -51,10 +50,10 @@ de dos atributos: la noción y los impactos'''
         self.datosParaPosicionDiagrama.nuevaPosicionDiagrama(posicion)
 
 
-    def actualizarPosicionDiagramaVerbo(self, diagrama: DiagramasEnVerbo):
-        calculadorPosicionVerbo = CalculadorPosicionVerbo(diagrama.esquinasVerbo())
+    def actualizarPosicionDiagramaVerbo(self, esquinasVerbo, posicionVerbo):
+        calculadorPosicionVerbo = CalculadorPosicionVerbo(esquinasVerbo)
         self.datosParaPosicionDiagrama.nuevoCalculadorPosicionVerbo(calculadorPosicionVerbo)
-        self.datosParaPosicionDiagrama.nuevaPosicionDiagrama(diagrama.posicionVerbo)
+        self.datosParaPosicionDiagrama.nuevaPosicionDiagrama(posicionVerbo)
 
     def getPosicionParaNodoDeVerbo(self):
         return self.datosParaPosicionDiagrama.calcularPosicionProximoNodoParaVerbo()
