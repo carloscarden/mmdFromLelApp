@@ -50,10 +50,10 @@ class TestAplicadorReglasVerbo(TestCase):
 
     def testLinksDiagramaVerbo(self):
 
-        l1 = LinkDiagrama("Client", "Sell a car","linkNormal")
-        l2 = LinkDiagrama("Car", "Sell a car" ,"linkNormal")
-        l3 = LinkDiagrama("Store", "Sell a car" ,"linkNormal")
-        l4 = LinkDiagrama("Date",  "Sell a car" ,"linkNormal")
+        l1 = LinkDiagrama("Sell a car","Client","Arco simple")
+        l2 = LinkDiagrama("Sell a car","Car" ,"Arco simple")
+        l3 = LinkDiagrama("Sell a car","Store" ,"Arco simple")
+        l4 = LinkDiagrama("Sell a car","Date" ,"Arco simple")
 
         linksQueTieneQueDevolver = [l1,l2,l3,l4]
 
@@ -73,3 +73,4 @@ class TestAplicadorReglasVerbo(TestCase):
             print("TODO MAL")
         finally:
             print('***********************************************************')
+            

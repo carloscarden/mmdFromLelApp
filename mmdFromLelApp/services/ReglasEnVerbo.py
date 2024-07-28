@@ -31,7 +31,7 @@ class ReglasEnVerbo(Reglas):
           el listado del Lel si es medida o no. Devuelve lo procesado en el objeto ProcesadoEnVerbo'''
           
         procesadoEnVerbo = ProcesadoEnVerbo([],[])
-        for simbolo in sujetosYObjetosDeVerbo :
+        for simbolo in sujetosYObjetosDeVerbo:
             # Encontrar el LEL correspondiente
             lelDeVerboAprocesar = list( filter( lambda obj_lel: self.esLelBuscado(obj_lel, simbolo) , 
                                            lelMockeado))

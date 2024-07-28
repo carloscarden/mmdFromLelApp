@@ -33,7 +33,6 @@ class AplicadorDeReglasVerbo():
             # apply Rule 3 to v, get set Df of dimensions, add them to f
             procesadoEnVerbo = self.reglasVerbo.procesarElVerbo(sujetosYObjetosDeVerbo, lels, v)
 
-
             self.diagramasEnVerbo.generarObjetosDelDiagramaPorVerbo(procesadoEnVerbo, v, hecho)
             
             v.terminadoDeProcesarVerbo()

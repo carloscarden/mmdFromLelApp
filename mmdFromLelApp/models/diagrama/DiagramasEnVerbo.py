@@ -94,7 +94,10 @@ class DiagramasEnVerbo:
     def nuevasDimensionesDeVerbo(self, lelsDeDimensiones: List[Lel], verboLel: Lel):
         for lelDimension in lelsDeDimensiones:
             posicionNueva = verboLel.getPosicionParaNodoDeVerbo()
-            self.diagrama.nuevoObjetoDimensionDelDiagrama(lelDimension.simbolo, verboLel.simbolo, posicionNueva)
+            simboloDimension = lelDimension.simbolo
+            simboloVerbo = verboLel.simbolo
+            self.diagrama.nuevoObjetoDimensionDelDiagrama(simboloDimension, simboloVerbo, posicionNueva)
+            self.diagrama.nuevoLinkDimensionDelDiagrama(simboloDimension, simboloVerbo)
             lelDimension.actualizarPosicionDiagrama(posicionNueva)
             lelDimension.terminadoDeDibujarNodo()
 

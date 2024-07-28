@@ -18,6 +18,10 @@ class LinkDiagrama:
 
 
     @classmethod
+    def nuevoLinkDimension(self, desde, hasta):
+        return LinkDiagrama(desde, hasta,  TipoLinkDiagrama.ARCO_SIMPLE.value)
+
+    @classmethod
     def nuevoLinkOpcional(self, desde, hasta):
         return LinkDiagrama(desde, hasta,  TipoLinkDiagrama.ARCO_OPCIONAL.value)
 

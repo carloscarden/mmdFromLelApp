@@ -23,6 +23,12 @@ class Diagrama:
     def nuevoObjetoDimensionDelDiagrama(self, lelDimensionSimbolo, verboLelSimbolo, posicionNueva):
         nuevaDimension = ObjetoDiagrama.nuevaDimension(lelDimensionSimbolo, verboLelSimbolo, posicionNueva)
         self.objetosDelDiagrama.append(nuevaDimension)
+
+
+    def nuevoLinkDimensionDelDiagrama(self, lelDimensionSimbolo, verboLelSimbolo):
+        nuevoLink = LinkDiagrama.nuevoLinkDimension(verboLelSimbolo, lelDimensionSimbolo)
+        self.linksDelDiagrama.append(nuevoLink)
+
     
     def nuevoObjetoNivelDelDiagrama(self, lelNivelSimbolo, sujetoSimbolo, posicionNueva):
         nuevoNivel = ObjetoDiagrama.nuevoNivel(lelNivelSimbolo, sujetoSimbolo, posicionNueva)
