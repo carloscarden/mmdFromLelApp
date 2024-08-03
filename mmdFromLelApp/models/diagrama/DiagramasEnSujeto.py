@@ -4,6 +4,7 @@ from mmdFromLelApp.models.diagrama.Diagrama import Diagrama
 from mmdFromLelApp.models.diagrama.LinkDiagrama import LinkDiagrama
 from mmdFromLelApp.models.diagrama.ObjetoDiagrama import ObjetoDiagrama
 from mmdFromLelApp.models.lel.Lel import Lel
+from mmdFromLelApp.models.lelsProcesados.ProcesadoEnSujeto import ProcesadoEnSujeto
 
 
 class DiagramasEnSujeto:
@@ -14,47 +15,43 @@ class DiagramasEnSujeto:
     def __init__(self, unDiagrama: Diagrama):
         self.diagrama = unDiagrama
 
+    
+    def generarObjetosDelDiagramaPorSujeto(self, procesadoEnSujeto: ProcesadoEnSujeto, sujeto: Lel):
+        # all the elements in lelsDeMedida should be defined as 
+        # measures of the fact corresponding to v
+        self.nuevosNivelesProcesados(procesadoEnSujeto.lelsDeNivel, sujeto)
+        self.nuevosArcosMultiples(procesadoEnSujeto.lelsArcosMultiples)
+        self.nuevosArcosOpcionales(procesadoEnSujeto.lelsArcosOpcionales)
+        self.nuevosNivelesNoProcesados(procesadoEnSujeto.lelsDeNivelNoProcesados)
+        self.nuevasPropiedades(procesadoEnSujeto.lelsDeNivelNoProcesados, sujeto)
 
-    def nuevosNiveles(self,  lelsDeNivel: List[Lel], sujeto: Lel):
-        for lel in lelsDeNivel:
-            posicionNueva = sujeto.getPosicionParaNodoDeSujeto()
-            lel.actualizarPosicionDiagrama(posicionNueva)
-        
-            self.diagrama.nuevoObjetoNivelDelDiagrama(lel.simbolo, sujeto.simbolo, posicionNueva)
 
+    def nuevosNivelesProcesados(self,  lelsDeNivel: List[Lel], sujeto: Lel):
+        for nivel in lelsDeNivel:
+
+            self.diagrama.nuevoLinkHecho(sujeto.simbolo, nivel.simbolo)
+
+
+    def nuevosArcosMultiples(self, lelsArcosMultiples: List[Lel], sujeto: Lel):
+        for lelMultiple in lelsArcosMultiples:
+            self.diagrama.nuevoLinkMultiple(sujeto.simbolo, lelMultiple.simbolo)
+            self.nuevoNodoMultiple(sujeto, lelMultiple)
+
+    def nuevosArcosOpcionales(self, lelsArcosOpcionales: List[Lel],sujeto: Lel):
+        for lelOpcional in lelsArcosOpcionales:
+            self.diagrama.nuevoLinkOpcional(sujeto.simbolo, lelOpcional.simbolo)
+            self.nuevoNodoOpcional(sujeto, lelOpcional)
+
+    def nuevosNivelesNoProcesados(self, lelsDeNivelNoProcesados: List[Lel],sujeto: Lel):
+        for lelNoProcesados in lelsDeNivelNoProcesados:
+            self.diagrama.nuevoLinkHecho(sujeto.simbolo, lelNoProcesados.simbolo)
+            self.nuevoNodoNoProcesado(sujeto, lelNoProcesados)
 
     def nuevasPropiedades(self,  lelsDePropiedad: List[Lel], sujeto: Lel):
-        for lel in lelsDePropiedad:
-            posicionNueva = sujeto.getPosicionParaNodoDeSujeto()
-            lel.terminadoDeProcesarPropiedad()
-            lel.actualizarPosicionDiagrama(posicionNueva)
+        for lelPropiedad in lelsDePropiedad:
+            self.diagrama.nuevoLinkHecho(sujeto.simbolo, lelPropiedad.simbolo)
+            self.nuevaPropiedad(sujeto, lelPropiedad)
             
-            self.diagrama.nuevoObjetoPropiedadDelDiagrama(lel.simbolo, sujeto.simbolo, posicionNueva)
-
-    def nuevosLelsOpcionales(self,  lelsOpcionales: List[Lel], sujeto: Lel):
-        for lel in lelsOpcionales:
-            posicionNueva = sujeto.getPosicionParaNodoDeSujeto()
-            lel.actualizarPosicionDiagrama(posicionNueva)
-            
-            self.diagrama.nuevoObjetoOpcionalDelDiagrama(lel.simbolo, sujeto.simbolo, posicionNueva)
-
-    def nuevoLinkDelDiagrama(self, linkDelDiagrama):
-        self.diagrama.nuevoLinkDelDiagrama(linkDelDiagrama)
-
-
-    def nuevoLinkHecho(self, sujetoSimbolo, nivelSimbolo):
-        link= LinkDiagrama.nuevoHecho( sujetoSimbolo, nivelSimbolo)
-        self.nuevoLinkDelDiagrama(link)
-
-    def nuevoLinkMultiple(self, sujetoSimbolo, lelMultipleSimbolo):
-        link = LinkDiagrama.nuevoLinkMultiple( sujetoSimbolo, lelMultipleSimbolo)
-        self.nuevoLinkDelDiagrama(link)
-
-    def nuevoLinkOpcional(self, sujetoSimbolo, lelOpcionalSimbolo):       
-        link= LinkDiagrama.nuevoLinkOpcional(sujetoSimbolo, lelOpcionalSimbolo)
-        self.nuevoLinkDelDiagrama(link)
-
-
 
     def nuevoNodoMultiple(self, sujeto: Lel, lelMultiple: Lel):
         posicionNueva = sujeto.getPosicionParaNodoDeSujeto()
@@ -81,3 +78,9 @@ class DiagramasEnSujeto:
         lelNoProcesado.terminadoDeDibujarNodo()
 
         
+    def nuevaPropiedad(self, sujeto: Lel, lelPropiedad: Lel):
+        posicionNueva = sujeto.getPosicionParaNodoDeSujeto()
+        lelPropiedad.actualizarPosicionDiagrama(posicionNueva)
+        self.diagrama.nuevoObjetoPropiedadDelDiagrama(lelPropiedad.simbolo, sujeto.simbolo, posicionNueva)
+        lelPropiedad.terminadoDeDibujarNodo()
+            

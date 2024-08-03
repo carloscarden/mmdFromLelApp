@@ -33,7 +33,8 @@ class AplicadorDeReglasSujeto():
                 #apply Rule 6 to o and o′, possibly change the arc from l to l′to multiple
                 #apply Rule 7 to o and o′, possibly change the arc from l to l′to optional
                 procesadoEnSujeto = self.reglas.procesarElSujeto(encontradoEnSujeto, lels)
-                procesadoEnSujeto.generarObjetosDelDiagrama(sujeto, self.diagramasEnSujeto)
+                self.diagramasEnSujeto.generarObjetosDelDiagramaPorSujeto(procesadoEnSujeto, sujeto)
+
 
                 hayMasLels.extend(procesadoEnSujeto.lelsDeNivelNoProcesados)
                 sujeto.terminadoDeProcesar()

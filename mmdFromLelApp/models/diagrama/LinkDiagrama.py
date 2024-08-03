@@ -6,7 +6,7 @@ class LinkDiagrama:
     de dónde parte y a dónde llega"""
     i = 12345
 
-    def __init__(self, desde, hasta, tipoLink: str):
+    def __init__(self, desde: str, hasta: str, tipoLink: str):
         self.desde = desde
         self.hasta= hasta
         self.tipoLink = tipoLink

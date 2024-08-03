@@ -1,6 +1,4 @@
 from typing import List
-from mmdFromLelApp.models.diagrama.DiagramasEnSujeto import DiagramasEnSujeto
-from mmdFromLelApp.models.diagrama.LinkDiagrama import LinkDiagrama
 
 from mmdFromLelApp.models.lel.Lel import Lel
 
@@ -48,22 +46,6 @@ class ProcesadoEnSujeto:
     
     def nuevoLelMultiple(self, unLelDePropiedad: Lel):
         self.lelsArcosMultiples.append(unLelDePropiedad)
-
-    def generarObjetosDelDiagrama(self, sujeto: Lel, diagramasEnSujeto: DiagramasEnSujeto):
-        for nivel in self.lelsDeNivel:
-            diagramasEnSujeto.nuevoLinkHecho(sujeto.simbolo, nivel.simbolo)
-        
-        for lelMultiple in self.lelsArcosMultiples:
-            diagramasEnSujeto.nuevoLinkMultiple(sujeto.simbolo, lelMultiple.simbolo)
-            diagramasEnSujeto.nuevoNodoMultiple(sujeto, lelMultiple)
-
-        for lelOpcional in self.lelsArcosOpcionales:
-            diagramasEnSujeto.nuevoLinkOpcional(sujeto.simbolo, lelOpcional.simbolo)
-            diagramasEnSujeto.nuevoNodoOpcional(sujeto, lelMultiple)
-        
-        for lelsNoProcesados in self.lelsDeNivelNoProcesados:
-            diagramasEnSujeto.nuevoLinkHecho(sujeto.simbolo, lelsNoProcesados.simbolo)
-            diagramasEnSujeto.nuevoNodoNoProcesado(sujeto, lelsNoProcesados)
 
 
     def __str__(self):

@@ -7,3 +7,4 @@ class ConstantesPosiciones(Enum):
     YVERBO = 50
     ACTUALIZACION_X = 200
     ACTUALIZACION_Y = 200
+    ANGULO_APERTURA_INICIAL = 200

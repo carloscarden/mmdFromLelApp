@@ -18,16 +18,10 @@ class Diagrama:
         nuevoHecho = ObjetoDiagrama.nuevoHecho(lelVerboSimbolo, posicionNueva)
         self.objetosDelDiagrama.append(nuevoHecho)
         return nuevoHecho
-
     
     def nuevoObjetoDimensionDelDiagrama(self, lelDimensionSimbolo, verboLelSimbolo, posicionNueva):
         nuevaDimension = ObjetoDiagrama.nuevaDimension(lelDimensionSimbolo, verboLelSimbolo, posicionNueva)
         self.objetosDelDiagrama.append(nuevaDimension)
-
-
-    def nuevoLinkDimensionDelDiagrama(self, lelDimensionSimbolo, verboLelSimbolo):
-        nuevoLink = LinkDiagrama.nuevoLinkDimension(verboLelSimbolo, lelDimensionSimbolo)
-        self.linksDelDiagrama.append(nuevoLink)
 
     
     def nuevoObjetoNivelDelDiagrama(self, lelNivelSimbolo, sujetoSimbolo, posicionNueva):
@@ -42,7 +36,22 @@ class Diagrama:
         nuevoObjetoOpcional = ObjetoDiagrama.nuevoLelOpcional(lelSimbolo, sujetoSimbolo, posicionNueva)
         self.objetosDelDiagrama.append(nuevoObjetoOpcional)
     
-    
+
+    def nuevoLinkHecho(self, sujetoSimbolo, nivelSimbolo):
+        nuevoLink= LinkDiagrama.nuevoHecho( sujetoSimbolo, nivelSimbolo)
+        self.linksDelDiagrama.append(nuevoLink)
+
+    def nuevoLinkMultiple(self, sujetoSimbolo, lelMultipleSimbolo):   
+        nuevoLink = LinkDiagrama.nuevoLinkMultiple( sujetoSimbolo, lelMultipleSimbolo)
+        self.linksDelDiagrama.append(nuevoLink)
+
+    def nuevoLinkOpcional(self, sujetoSimbolo, lelOpcionalSimbolo):
+        nuevoLink= LinkDiagrama.nuevoLinkOpcional(sujetoSimbolo, lelOpcionalSimbolo)
+        self.linksDelDiagrama.append(nuevoLink)
+
+    def nuevoLinkDimensionDelDiagrama(self, lelDimensionSimbolo, verboLelSimbolo):
+        nuevoLink = LinkDiagrama.nuevoLinkDimension(verboLelSimbolo, lelDimensionSimbolo)
+        self.linksDelDiagrama.append(nuevoLink)
     
     def nuevoLinkDelDiagrama(self, linkDelDiagrama):
         self.linksDelDiagrama.append(linkDelDiagrama)

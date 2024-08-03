@@ -1,4 +1,5 @@
 import math
+from mmdFromLelApp.models.diagrama.ConstantesPosiciones import ConstantesPosiciones
 
 from mmdFromLelApp.models.lel.CalculadorPosicionVerbo import CalculadorPosicionVerbo
 
@@ -9,12 +10,16 @@ class DatosParaPosicionDiagrama:
 
     def __init__(self,  unaPosicionDiagrama = None, calculadorPosicionVerbo: CalculadorPosicionVerbo = None):
         self.posicionDiagrama = unaPosicionDiagrama
-        self.anguloProximoNodo = 30
+        self.anguloProximoNodo = ConstantesPosiciones.ANGULO_APERTURA_INICIAL.value
         self.calculadorPosicionVerbo = calculadorPosicionVerbo
 
     @property
-    def DISTANCIA_NODO(self):  # aquí definimos la constante
+    def DISTANCIA_NODO(self):  # es la distancia que se va a posicionar del nodo padre
         return 100
+
+    @property
+    def APERTURA_NODO(self):  # es El ángulo de abertura en grados
+        return 30
 
     def nuevaPosicionDiagrama(self, posicion):
         self.posicionDiagrama = posicion
@@ -54,7 +59,7 @@ class DatosParaPosicionDiagrama:
 
         posicionY = self.posicionDiagrama[1] - self.DISTANCIA_NODO*math.sin(radian)
         
-        self.anguloProximoNodo  = self.anguloProximoNodo+30 
+        self.anguloProximoNodo  = self.anguloProximoNodo + self.APERTURA_NODO 
         return (posicionX, posicionY)
 
 

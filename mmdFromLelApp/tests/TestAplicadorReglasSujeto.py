@@ -44,7 +44,7 @@ class TestAplicadorReglasSujeto(TestCase):
                     
             # Comprueba que todos los simbolos en hechosQueTieneQueDevolver están en resultado
             for s in objetosDeDiagramaQueTieneQueDevolver:
-                self.assertTrue(any(oa.simbolo.lower() == s.lower() for oa in objetosDiagramaDevueltos))
+                self.assertTrue(any(oa.key.lower() == s.key.lower() for oa in objetosDiagramaDevueltos))
                 print("TEST OK RECUPERAR NODOS DEL SUJETO!!!")
             print("TODO BIEN")
         except AssertionError:

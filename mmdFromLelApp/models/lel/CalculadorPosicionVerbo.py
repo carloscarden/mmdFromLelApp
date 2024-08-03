@@ -1,7 +1,6 @@
 
 from mmdFromLelApp.models.diagrama.LadosDiagramaVerbo import LadosDiagramaVerbo
 
-
 class CalculadorPosicionVerbo:
 
     i = 12345
