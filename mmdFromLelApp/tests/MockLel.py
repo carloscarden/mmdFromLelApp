@@ -60,7 +60,7 @@ either privately or commercially. A car has a model.''')
 
 
         lel4 = Lel(Categoria.OBJETO, 'Store', '''Facility where the purchase has been done. 
-                   A store is located in one city..''')
+                   A store is located in one city.''')
 
         lel5 = Lel(Categoria.OBJETO, 'Date', '''The day when the purchase has been done.''')
 
@@ -83,7 +83,11 @@ either privately or commercially. A car has a model.''')
                     '''The measurement of the total volume of the cylinders normally 
         expressed in cubic centimeters or litres, e.g., 1800 cc''')
         
+        lel17 = Lel(Categoria.OBJETO, 'City', ''' A city belongs to a state.''')
+        lel18 = Lel(Categoria.OBJETO, 'State', ''' A state belongs to a country.''')
+        lel19 = Lel(Categoria.OBJETO, 'Country', ''' An area of land that has or used to have its
+own government and laws.''')
         
-        lels = [lel1,lel2,lel3,lel4,lel5, lel6, lel7, lel8, lel9, lel10, lel11]
+        lels = [lel1,lel2,lel3,lel4,lel5, lel6, lel7, lel8, lel9, lel10, lel11, lel17, lel18, lel19]
         return lels 
 

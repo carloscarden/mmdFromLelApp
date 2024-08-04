@@ -20,9 +20,9 @@ class DiagramasEnSujeto:
         # all the elements in lelsDeMedida should be defined as 
         # measures of the fact corresponding to v
         self.nuevosNivelesProcesados(procesadoEnSujeto.lelsDeNivel, sujeto)
-        self.nuevosArcosMultiples(procesadoEnSujeto.lelsArcosMultiples)
-        self.nuevosArcosOpcionales(procesadoEnSujeto.lelsArcosOpcionales)
-        self.nuevosNivelesNoProcesados(procesadoEnSujeto.lelsDeNivelNoProcesados)
+        self.nuevosArcosMultiples(procesadoEnSujeto.lelsArcosMultiples, sujeto)
+        self.nuevosArcosOpcionales(procesadoEnSujeto.lelsArcosOpcionales, sujeto)
+        self.nuevosNivelesNoProcesados(procesadoEnSujeto.lelsDeNivelNoProcesados, sujeto)
         self.nuevasPropiedades(procesadoEnSujeto.lelsDeNivelNoProcesados, sujeto)
 
 

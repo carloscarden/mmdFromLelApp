@@ -39,7 +39,6 @@ class ProcesadoEnSujeto:
     def nuevoLelDeNivelNoProcesado(self, unLelDeNivel: Lel):
         self.lelsDeNivelNoProcesados.append(unLelDeNivel)
 
-
     def nuevoLelOpcional(self, unLelDePropiedad: Lel):
         self.lelsArcosOpcionales.append(unLelDePropiedad)
 
@@ -58,5 +57,6 @@ class ProcesadoEnSujeto:
     def __str__(self):
         return f'''ProcesadoEnSujeto(lelsDePropiedad={self.lelsDePropiedad}, 
                 lelsDeNivel={self.lelsDeNivel},
+                lelsDeNivelNoProcesados={self.lelsDeNivelNoProcesados},
                 lelsArcosOpcionales={self.lelsArcosOpcionales},
                 lelsArcosMultiples={self.lelsArcosMultiples})'''

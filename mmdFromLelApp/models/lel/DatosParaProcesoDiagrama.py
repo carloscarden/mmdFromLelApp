@@ -11,7 +11,7 @@ class DatosParaProcesoDiagrama:
     def __init__(self, procesado: bool = False, docNotion: Doc = None, 
                  unTipoObjetoDiagrama: str = None, unaPosicionDiagrama = None):
         # si el lel se proceso o no
-        self.procesadoLel = procesado
+        self.procesadoLel = False
 
         self.creadoEnDiagrama = False
 

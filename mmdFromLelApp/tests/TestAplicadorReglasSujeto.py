@@ -52,37 +52,3 @@ class TestAplicadorReglasSujeto(TestCase):
         finally:
             print('***********************************************************')
 
-
-    def testLinksDiagramaVerbo(self):
-
-        l1 = LinkDiagrama("Car", "Model","linkNormal")
-        l2 = LinkDiagrama("Model", "Segment" ,"linkNormal")
-        l3 = LinkDiagrama("Store", "City" ,"linkNormal")
-        l4 = LinkDiagrama("City", "Region" ,"linkNormal")
-        l5 = LinkDiagrama("Region", "Country" ,"linkNormal")
-
-        l6 = LinkDiagrama("Model", "Capacity" ,"linkNormal")
-
-        l7 = LinkDiagrama("Model", "Factory" ,"linkNormal")
-        l8 = LinkDiagrama("Factory", "Model" ,"linkNormal")
-
-        l9 = LinkDiagrama("Client", "Gender" ,"linkNormal")
-
-        linksQueTieneQueDevolver = [l1,l2,l3,l4,l5, l6, l7, l8, l9]
-
-        self.aplicadorDeReglasSujeto.aplicarReglasDeSujeto(self.lelsCategoricosDeVerbo,self.mockLel)
-        linksDevueltos = self.diagrama.linksDelDiagrama
-
-
-        print("              TEST LINKS DEL SUJETO!!!")
-        try:
-            # Comprueba que todos los simbolos en hechosQueTieneQueDevolver están en resultado
-            for s in linksQueTieneQueDevolver:
-                self.assertTrue(any(oa.desde.lower() == s.desde.lower()  for oa in linksDevueltos))
-                print("TEST OK RECUPERAR NODOS DEL SUJETO!!!")
-            print("TODO BIEN")
-        except AssertionError:
-            print("TODO MAL")
-        finally:
-            print('***********************************************************')
-

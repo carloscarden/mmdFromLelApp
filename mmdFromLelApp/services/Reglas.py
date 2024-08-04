@@ -66,7 +66,7 @@ class Reglas:
 
 
     def esLelBuscadoCompuesto(self, unLel: Lel, simboloAbuscar):
-        completo = "".join([ n.text for n in simboloAbuscar]).strip().replace(",","").replace("\n"," ")
+        completo = " ".join([ n.text.strip() for n in simboloAbuscar if n.text.strip()])
         ultimo  = simboloAbuscar[-1].text.strip()
         return ( unLel.simbolo.lower().strip() ==  completo.lower() and unLel.categoria != Categoria.VERBO ) or \
                ( unLel.simbolo.lower().strip() ==  ultimo.lower() and unLel.categoria != Categoria.VERBO )

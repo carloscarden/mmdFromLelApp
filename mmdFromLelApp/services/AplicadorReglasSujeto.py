@@ -20,10 +20,14 @@ class AplicadorDeReglasSujeto():
 
         lelsAprocesar = lelsCategoricosDeVerbo
 
+        print(lelsAprocesar)
+
+
         while 1:
             hayMasLels = []
 
             for sujeto in  lelsAprocesar:
+                print("procesando::", sujeto.simbolo)
 
                 # Encontrar todos los Categorical objects and subjects del sujeto
                 encontradoEnSujeto  = self.reglas.encontrarLosObjetosCategoricosDeSujetos(sujeto)
@@ -35,8 +39,9 @@ class AplicadorDeReglasSujeto():
                 procesadoEnSujeto = self.reglas.procesarElSujeto(encontradoEnSujeto, lels)
                 self.diagramasEnSujeto.generarObjetosDelDiagramaPorSujeto(procesadoEnSujeto, sujeto)
 
-
+                
                 hayMasLels.extend(procesadoEnSujeto.lelsDeNivelNoProcesados)
+                print("lels para seguir procesando::", procesadoEnSujeto)
                 sujeto.terminadoDeProcesar()
 
             if not hayMasLels:

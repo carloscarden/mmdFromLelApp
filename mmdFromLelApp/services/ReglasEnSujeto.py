@@ -23,7 +23,7 @@ class ReglasEnSujeto(Reglas):
 
         # Lista de palabras objetivo
         target_words = ["has", "belongs", "comprised", "covered", "incorporated", "involves", 
-                    "according","according to", "characterized by","manufactured"]
+                    "according","according to", "characterized by","manufactured", "located"]
 
         encontradoEnSujeto = EncontradoEnNotionSujeto([],[], [], [])
 
@@ -154,13 +154,9 @@ class ReglasEnSujeto(Reglas):
                 # Categorical objects and subjects of objects or subjects give origin to levels
                 # Si no cae en la categoria de medida, entonces es un nivel del sujeto
                 procesadoEnSujeto.nuevoLelDeNivel(lelDeSujetoAprocesar[0])
-                if(not lelDeSujetoAprocesar[0].estaProcesado):
+                if(not lelDeSujetoAprocesar[0].estaProcesado()):
                     procesadoEnSujeto.nuevoLelDeNivelNoProcesado(lelDeSujetoAprocesar[0])
-
-
-
-
-
+                    return 
 
 
 
