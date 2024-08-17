@@ -43,7 +43,6 @@ class DiagramasEnSujeto:
 
     def nuevosNivelesNoProcesados(self, lelsDeNivelNoProcesados: List[Lel],sujeto: Lel):
         for lelNoProcesados in lelsDeNivelNoProcesados:
-            self.diagrama.nuevoLinkHecho(sujeto.simbolo, lelNoProcesados.simbolo)
             self.nuevoNodoNoProcesado(sujeto, lelNoProcesados)
 
     def nuevasPropiedades(self,  lelsDePropiedad: List[Lel], sujeto: Lel):

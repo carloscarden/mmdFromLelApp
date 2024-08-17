@@ -20,6 +20,7 @@ class TestAplicadorReglasSujeto(TestCase):
 
         self.aplicadorDeReglasSujeto = AplicadorDeReglasSujeto(self.diagrama) 
 
+
     def testNodosDiagramaSujeto(self):
 
         o1 = ObjetoDiagrama("Model",  "Category")
@@ -53,6 +54,7 @@ class TestAplicadorReglasSujeto(TestCase):
             print("TODO MAL")
         finally:
             print('***********************************************************')
+
 
 
     def testLinksDiagramaVerbo(self):

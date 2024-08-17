@@ -14,12 +14,12 @@ class LinkDiagrama:
         
     @classmethod
     def nuevoHecho(self, desde, hasta):
-        return LinkDiagrama(desde, hasta,  TipoLinkDiagrama.ARCO_SIMPLE.value)
+        return LinkDiagrama(desde, hasta,  TipoLinkDiagrama.ARCO_HECHO.value)
 
 
     @classmethod
     def nuevoLinkDimension(self, desde, hasta):
-        return LinkDiagrama(desde, hasta,  TipoLinkDiagrama.ARCO_SIMPLE.value)
+        return LinkDiagrama(desde, hasta,  TipoLinkDiagrama.ARCO_DIMENSION.value)
 
     @classmethod
     def nuevoLinkOpcional(self, desde, hasta):
