@@ -15,17 +15,18 @@ class TestPosicion(TestCase):
         self.diagrama = Diagrama([], [])
         self.diagramasEnVerbo = DiagramasEnVerbo(self.diagrama)
 
-    def getObjetosDiagramaDelVerboQueTieneQueDevolver():
+    def getObjetosDiagramaDelVerboQueTieneQueDevolver(self):
         
-        objeto1 = ObjetoDiagrama.nuevaDimension('Car', 'Sell a car', (0,0))
-        objeto2 = ObjetoDiagrama.nuevaDimension('Store', 'Sell a car', (0,0))
-        objeto3 = ObjetoDiagrama.nuevaDimension('Date', 'Sell a car', (0,0))
-        objeto4 = ObjetoDiagrama.nuevaDimension('Client', 'Sell a car', (0,0))
+        objeto1 = ObjetoDiagrama.nuevoHecho('Sell a car', (800, 50))
+        objeto2 = ObjetoDiagrama.nuevaDimension('Car', 'Sell a car', (600.0, -35.0))
+        objeto3 = ObjetoDiagrama.nuevaDimension('Store', 'Sell a car', (1000.0, -35.0))
+        objeto3 = ObjetoDiagrama.nuevaDimension('Date', 'Sell a car', (600.0, 135.0))
+        objeto4 = ObjetoDiagrama.nuevaDimension('Client', 'Sell a car', (1000.0, 135.0))
 
-        return [objeto1, objeto2, objeto3, objeto4]
+        return [ objeto1, objeto2, objeto3, objeto4]
 
 
-    def getProcesadoEnVerbo():
+    def getProcesadoEnVerbo(self):
         nodoVerbo2 = Lel(Categoria.OBJETO, 'Price', '''Amount of money that the client must pay for the car.''')
         medidas = [nodoVerbo2]
 
@@ -46,7 +47,8 @@ either privately or commercially. A car has a model.''')
         
         lelVerbo = Lel(Categoria.VERBO,  'Sell a car', ''' Operation in which a client pays a price to obtain a car on a date in a store.''')
         hecho =  self.diagramasEnVerbo.nuevoHecho(lelVerbo)
-
+        lelVerbo.actualizarPosicionDiagramaVerbo(self.diagramasEnVerbo.esquinasVerbo(),
+                                                 self.diagramasEnVerbo.posicionVerbo)
 
         objetoDiagramasQueTieneQueDevolver = self.getObjetosDiagramaDelVerboQueTieneQueDevolver()
 
@@ -56,9 +58,10 @@ either privately or commercially. A car has a model.''')
 
 
         diagramasDevueltos = self.diagrama.objetosDelDiagrama
-        print("objetos que tiene que devolver ::","\n".join(map(str, objetoDiagramasQueTieneQueDevolver)))
+        print("objetos que tiene que devolver::\n","\n ".join(map(str, objetoDiagramasQueTieneQueDevolver)))
 
-        print("Diagramas devueltos::", "\n".join(map(str, diagramasDevueltos)))
+        print("     ")
+        print("Diagramas devueltos::\n", "\n ".join(map(str, diagramasDevueltos)))
         print("      TEST NODOS POSICION EN VERBO!!!")
         try:
             # Comprueba que todos los links se dibujaron correctamente
@@ -77,7 +80,6 @@ either privately or commercially. A car has a model.''')
             print("TODO MAL")
         finally:
             print('***********************************************************')
-
 
 
     ''' 
@@ -115,7 +117,3 @@ either privately or commercially. A car has a model.''')
             print("TODO MAL")
         finally:
             print('***********************************************************')
-
-
-
-        

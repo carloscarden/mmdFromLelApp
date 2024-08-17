@@ -27,7 +27,6 @@ class DiagramasEnVerbo:
                         
     def esquinasVerbo(self):
         # Calculemos la mitad del largo y del alto:
-
         # Posición del centro:
         ''' 
         
@@ -42,9 +41,13 @@ class DiagramasEnVerbo:
             -- Desde el centro hasta cualquier borde superior o inferior, la distancia es la mitad del alto.
 
         '''
+
+
         mitadDelLargo = self.posicionVerbo[0] / 2
         mitadDelAlto= self.posicionVerbo[1] / 2
 
+        print("mitad de largo", mitadDelLargo)
+        print("mitad de alto", mitadDelAlto)
 
         # Cálculo de las coordenadas:
         ''' 
@@ -54,18 +57,25 @@ class DiagramasEnVerbo:
                -- Restamos la mitad del largo al centro para obtener el lado izquierdo.
                -- Sumamos la mitad del largo al centro para obtener el lado derecho.
         '''
-        xsi = self.posicionVerbo[0] - mitadDelLargo  - 200
-        xii = self.posicionVerbo[0] + mitadDelLargo  + 200
+        print("posicion de verbo[0]", self.posicionVerbo[0])
+        print("posicion de verbo[1]", self.posicionVerbo[1])
+
+        xsi = self.posicionVerbo[0] - mitadDelLargo  + ConstantesPosiciones.APERTURA_NODO_VERBO_EJE_X.value
+
+        xii = self.posicionVerbo[0] + mitadDelLargo  - ConstantesPosiciones.APERTURA_NODO_VERBO_EJE_X.value
+
 
         ''' 
         
             Para el eje y:
 
-               -- Sumamos la mitad del alto (42.5) al centro para obtener el lado superior.
-               -- Restamos la mitad del alto (42.5) al centro para obtener el lado inferior.
+               -- Restamos la mitad del alto al centro para obtener el lado superior.
+               -- Sumamos la mitad del alto al centro para obtener el lado inferior.
         '''
-        ysi = self.posicionVerbo[1] + mitadDelAlto - 60
-        yii = self.posicionVerbo[1] - mitadDelAlto  + 50
+        ysi = self.posicionVerbo[1] - mitadDelAlto - ConstantesPosiciones.APERTURA_NODO_VERBO_EJE_Y.value
+
+        yii = self.posicionVerbo[1] + mitadDelAlto  + ConstantesPosiciones.APERTURA_NODO_VERBO_EJE_Y.value
+
 
         esquinaSuperiorIzquierda = (xsi,ysi)
         esquinaSuperiorDerecha = (xii, ysi)
