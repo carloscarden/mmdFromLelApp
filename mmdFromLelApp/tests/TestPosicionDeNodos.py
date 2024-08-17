@@ -15,37 +15,14 @@ class TestPosicion(TestCase):
         self.diagrama = Diagrama([], [])
         self.diagramasEnVerbo = DiagramasEnVerbo(self.diagrama)
 
-
-    def testNodosPosicionEnVerbo(self):
+    def getObjetosDiagramaDelVerboQueTieneQueDevolver():
         
-        lelVerbo = Lel(Categoria.VERBO,  'Sell a car', ''' Operation in which a client pays a price to obtain a car on a date in a store.''')
-        hecho =  self.diagramasEnVerbo.nuevoHecho(lelVerbo)
+        objeto1 = ObjetoDiagrama.nuevaDimension('Car', 'Sell a car', (0,0))
+        objeto2 = ObjetoDiagrama.nuevaDimension('Store', 'Sell a car', (0,0))
+        objeto3 = ObjetoDiagrama.nuevaDimension('Date', 'Sell a car', (0,0))
+        objeto4 = ObjetoDiagrama.nuevaDimension('Client', 'Sell a car', (0,0))
 
-
-        objetoDiagramasQueTieneQueDevolver = self.getObjetosDiagramaDelVerboQueTieneQueDevolver()
-
-
-        mockProcesadoEnVerbo = self.getProcesadoEnVerbo()
-        self.diagramasEnVerbo.generarObjetosDelDiagramaPorVerbo(mockProcesadoEnVerbo, lelVerbo, hecho)
-        print("      TEST NODOS POSICION EN VERBO!!!")
-        try:
-            diagramasDevueltos = self.diagrama.objetosDelDiagrama
-            # Comprueba que todos los links se dibujaron correctamente
-            for s in objetoDiagramasQueTieneQueDevolver:
-                hayObjeto = any((oa.key == s.key 
-                                     and oa.posicionX == s.posicionX and oa.posicionY == s.posicionY)
-                                       for oa in diagramasDevueltos)
-                if(not hayObjeto):
-                    print("objeto no encontrado: ",s)
-                
-                self.assertTrue(hayObjeto)
-                    
-            # Comprueba que todos los simbolos en hechosQueTieneQueDevolver están en resultado
-            print("TODO BIEN")
-        except AssertionError:
-            print("TODO MAL")
-        finally:
-            print('***********************************************************')
+        return [objeto1, objeto2, objeto3, objeto4]
 
 
     def getProcesadoEnVerbo():
@@ -65,14 +42,54 @@ either privately or commercially. A car has a model.''')
         return ProcesadoEnVerbo(medidas, dimensiones)
 
 
-    def getObjetosDiagramaDelVerboQueTieneQueDevolver():
+    def testNodosPosicionEnVerbo(self):
         
-        objeto1 = ObjetoDiagrama.nuevaDimension('Car', 'Sell a car', (0,0))
-        objeto2 = ObjetoDiagrama.nuevaDimension('Store', 'Sell a car', (0,0))
-        objeto3 = ObjetoDiagrama.nuevaDimension('Date', 'Sell a car', (0,0))
-        objeto4 = ObjetoDiagrama.nuevaDimension('Client', 'Sell a car', (0,0))
+        lelVerbo = Lel(Categoria.VERBO,  'Sell a car', ''' Operation in which a client pays a price to obtain a car on a date in a store.''')
+        hecho =  self.diagramasEnVerbo.nuevoHecho(lelVerbo)
 
-        return [objeto1, objeto2, objeto3, objeto4]
+
+        objetoDiagramasQueTieneQueDevolver = self.getObjetosDiagramaDelVerboQueTieneQueDevolver()
+
+
+        mockProcesadoEnVerbo = self.getProcesadoEnVerbo()
+        self.diagramasEnVerbo.generarObjetosDelDiagramaPorVerbo(mockProcesadoEnVerbo, lelVerbo, hecho)
+
+
+        diagramasDevueltos = self.diagrama.objetosDelDiagrama
+        print("objetos que tiene que devolver ::","\n".join(map(str, objetoDiagramasQueTieneQueDevolver)))
+
+        print("Diagramas devueltos::", "\n".join(map(str, diagramasDevueltos)))
+        print("      TEST NODOS POSICION EN VERBO!!!")
+        try:
+            # Comprueba que todos los links se dibujaron correctamente
+            for s in objetoDiagramasQueTieneQueDevolver:
+                hayObjeto = any((oa.key == s.key 
+                                     and oa.posicionX == s.posicionX and oa.posicionY == s.posicionY)
+                                       for oa in diagramasDevueltos)
+                if(not hayObjeto):
+                    print("objeto no encontrado: ",s)
+                
+                self.assertTrue(hayObjeto)
+                    
+            # Comprueba que todos los simbolos en hechosQueTieneQueDevolver están en resultado
+            print("TODO BIEN")
+        except AssertionError:
+            print("TODO MAL")
+        finally:
+            print('***********************************************************')
+
+
+
+    ''' 
+        Test posicion 
+    '''
+    def getObjetosDiagramaDelNodoQueTieneQueDevolver():
+        objeto2 = ObjetoDiagrama.nuevaDimension('Segment', 'Model', (0,0))
+        objeto3 = ObjetoDiagrama.nuevaDimension('Factory', 'Model', (0,0))
+        objeto4 = ObjetoDiagrama.nuevaDimension('Engine capacity', 'Model', (0,0))
+
+        return [objeto2,objeto3, objeto4]
+
 
     def testNodosPosicionEnNodo(self):
 
@@ -100,11 +117,5 @@ either privately or commercially. A car has a model.''')
             print('***********************************************************')
 
 
-    def getObjetosDiagramaDelNodoQueTieneQueDevolver():
-        objeto2 = ObjetoDiagrama.nuevaDimension('Segment', 'Model', (0,0))
-        objeto3 = ObjetoDiagrama.nuevaDimension('Factory', 'Model', (0,0))
-        objeto4 = ObjetoDiagrama.nuevaDimension('Engine capacity', 'Model', (0,0))
-
-        return [objeto2,objeto3, objeto4]
 
         
