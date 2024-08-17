@@ -27,25 +27,27 @@ class TestAplicadorReglasSujeto(TestCase):
         o3 = ObjetoDiagrama("Segment",   "Property" )
         o4 = ObjetoDiagrama("Store",   "Property" )
         o5 = ObjetoDiagrama("City",   "Property" )
-        o6 = ObjetoDiagrama("Region",   "Property" )
         o7 = ObjetoDiagrama("Country",  "Price")
 
-        o8 = ObjetoDiagrama("Capacity",   "Category" )
+        o8 = ObjetoDiagrama("Engine capacity",   "Category" )
         o9 = ObjetoDiagrama("Gender",   "Category" )
 
-        objetosDeDiagramaQueTieneQueDevolver = [o1,o2,o3,o4,o5, o6, o7, o8, o9]
+        objetosDeDiagramaQueTieneQueDevolver = [o1,o2,o3,o4,o5, o7, o8, o9]
 
 
         self.aplicadorDeReglasSujeto.aplicarReglasDeSujeto(self.lelsCategoricosDeVerbo,self.mockLel)
         objetosDiagramaDevueltos = self.diagrama.objetosDelDiagrama
 
+        print("objetos devueltos::", "\n".join(map(str, objetosDiagramaDevueltos)))
         print("      TEST NODOS DEL SUJETO!!!")
         try:
                     
             # Comprueba que todos los simbolos en hechosQueTieneQueDevolver están en resultado
             for s in objetosDeDiagramaQueTieneQueDevolver:
-                self.assertTrue(any(oa.key.lower() == s.key.lower() for oa in objetosDiagramaDevueltos))
-                print("TEST OK RECUPERAR NODOS DEL SUJETO!!!")
+                hayObjeto = any(oa.key.lower() == s.key.lower() for oa in objetosDiagramaDevueltos)
+                if (not hayObjeto):
+                    print("objeto no encontrado:: ", s)
+                self.assertTrue(hayObjeto)
             print("TODO BIEN")
         except AssertionError:
             print("TODO MAL")

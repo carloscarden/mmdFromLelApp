@@ -23,12 +23,11 @@ class DiagramasEnSujeto:
         self.nuevosArcosMultiples(procesadoEnSujeto.lelsArcosMultiples, sujeto)
         self.nuevosArcosOpcionales(procesadoEnSujeto.lelsArcosOpcionales, sujeto)
         self.nuevosNivelesNoProcesados(procesadoEnSujeto.lelsDeNivelNoProcesados, sujeto)
-        self.nuevasPropiedades(procesadoEnSujeto.lelsDeNivelNoProcesados, sujeto)
+        self.nuevasPropiedades(procesadoEnSujeto.lelsDePropiedad, sujeto)
 
 
     def nuevosNivelesProcesados(self,  lelsDeNivel: List[Lel], sujeto: Lel):
         for nivel in lelsDeNivel:
-
             self.diagrama.nuevoLinkHecho(sujeto.simbolo, nivel.simbolo)
 
 
@@ -65,6 +64,7 @@ class DiagramasEnSujeto:
         lelOpcional.actualizarPosicionDiagrama(posicionNueva)
             
         self.diagrama.nuevoObjetoOpcionalDelDiagrama(lelOpcional.simbolo, sujeto.simbolo, posicionNueva)
+        lelOpcional.terminadoDeDibujarNodo()
 
 
     def nuevoNodoNoProcesado(self, sujeto: Lel, lelNoProcesado: Lel):
