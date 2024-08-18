@@ -17,29 +17,29 @@ class TestPosicion(TestCase):
         self.diagramasEnSujeto = DiagramasEnSujeto(self.diagrama)
 
     def getObjetosDiagramaDelNodoQueTieneQueDevolver(self):
-        objeto2 = ObjetoDiagrama.nuevoNivel('n1', 'Model', (0,0))
-        objeto3 = ObjetoDiagrama.nuevoNivel('n2', 'Model', (0,0))
-        objeto4 = ObjetoDiagrama.nuevoNivel('n3', 'Model', (0,0))
-        objeto5 = ObjetoDiagrama.nuevoNivel('n4', 'Model', (0,0))
+        objeto2 = ObjetoDiagrama.nuevoNivel('n1', 'Model', (634,-128))
+        objeto3 = ObjetoDiagrama.nuevoNivel('n2', 'Model', (600,-135))
+        objeto4 = ObjetoDiagrama.nuevoNivel('n3', 'Model', (565,-128))
+        objeto5 = ObjetoDiagrama.nuevoNivel('n4', 'Model', (535,-111))
         objetosLadoArriba = [objeto2,objeto3,objeto4,objeto5]        
 
-        objeto6 = ObjetoDiagrama.nuevoNivel('n5', 'Model', (0,0))
-        objeto7 = ObjetoDiagrama.nuevoNivel('n6', 'Model', (0,0))
-        objeto8 = ObjetoDiagrama.nuevoNivel('n7', 'Model', (0,0))
-        objeto9 = ObjetoDiagrama.nuevoNivel('n8', 'Model', (0,0))
+        objeto6 = ObjetoDiagrama.nuevoNivel('n5', 'Model', (1100,-35))
+        objeto7 = ObjetoDiagrama.nuevoNivel('n6', 'Model', (1093,-69))
+        objeto8 = ObjetoDiagrama.nuevoNivel('n7', 'Model', (1076,-99))
+        objeto9 = ObjetoDiagrama.nuevoNivel('n8', 'Model', (1050,-121))
         objetosLadoDerecho = [objeto6,objeto7,objeto8,objeto9]        
 
 
-        objeto10 = ObjetoDiagrama.nuevoNivel('n9', 'Model', (0,0))
-        objeto11 = ObjetoDiagrama.nuevoNivel('n10', 'Model', (0,0))
-        objeto12 = ObjetoDiagrama.nuevoNivel('n11', 'Model', (0,0))
-        objeto13 = ObjetoDiagrama.nuevoNivel('n12', 'Model', (0,0))
+        objeto10 = ObjetoDiagrama.nuevoNivel('n9', 'Model', (500,135))
+        objeto11 = ObjetoDiagrama.nuevoNivel('n10', 'Model', (506,169))
+        objeto12 = ObjetoDiagrama.nuevoNivel('n11', 'Model', (523,199))
+        objeto13 = ObjetoDiagrama.nuevoNivel('n12', 'Model', (550,221))
         objetosLadoIzquierdo = [objeto10,objeto11,objeto12,objeto13]        
 
-        objeto14 = ObjetoDiagrama.nuevoNivel('n13', 'Model', (0,0))
-        objeto15 = ObjetoDiagrama.nuevoNivel('n14', 'Model', (0,0))
-        objeto16 = ObjetoDiagrama.nuevoNivel('n15', 'Model', (0,0))
-        objeto17 = ObjetoDiagrama.nuevoNivel('n16', 'Model', (0,0))
+        objeto14 = ObjetoDiagrama.nuevoNivel('n13', 'Model', (965,228))
+        objeto15 = ObjetoDiagrama.nuevoNivel('n14', 'Model', (1000,235))
+        objeto16 = ObjetoDiagrama.nuevoNivel('n15', 'Model', (1034,228))
+        objeto17 = ObjetoDiagrama.nuevoNivel('n16', 'Model', (1064,211))
         objetosLadoAbajo = [objeto14,objeto15,objeto16,objeto17]        
 
         return [objetosLadoArriba,objetosLadoDerecho, objetosLadoAbajo, objetosLadoIzquierdo]
@@ -130,6 +130,7 @@ class TestPosicion(TestCase):
                     print("objeto no encontrado: ",s)
                 
                 self.assertTrue(hayObjeto)
+            print("PASA OBJETOS diagrama arriba")
 
 
             objetoDiagramaDerechaQueTieneQueDevolver = objetoDiagramasQueTieneQueDevolver[1]
@@ -145,6 +146,7 @@ class TestPosicion(TestCase):
                 
                 self.assertTrue(hayObjeto)
 
+            print("PASA OBJETOS diagrama derecha")
                 
             objetoDiagramaAbajoQueTieneQueDevolver = objetoDiagramasQueTieneQueDevolver[2]
             print("objetoDiagramaAbajoQueTieneQueDevolver que tiene que devolver::\n",
@@ -159,6 +161,8 @@ class TestPosicion(TestCase):
                 
                 self.assertTrue(hayObjeto)
                     
+            print("PASA OBJETOS diagrama abajo")
+
             objetoDiagramaIzquierdaQueTieneQueDevolver = objetoDiagramasQueTieneQueDevolver[3]
             print("objetoDiagramaIzquierdaQueTieneQueDevolver que tiene que devolver::\n",
                   "\n ".join(map(str, objetoDiagramaIzquierdaQueTieneQueDevolver)))
@@ -171,6 +175,7 @@ class TestPosicion(TestCase):
                     print("objeto no encontrado: ",s)
                 
                 self.assertTrue(hayObjeto)
+            print("PASA OBJETOS diagrama izquierda")
                     
             # Comprueba que todos los simbolos en hechosQueTieneQueDevolver están en resultado
             print("TODO BIEN")
