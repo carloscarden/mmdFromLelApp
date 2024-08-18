@@ -55,6 +55,12 @@ de dos atributos: la noción y los impactos'''
         self.datosParaPosicionDiagrama.nuevoCalculadorPosicionVerbo(calculadorPosicionVerbo)
         self.datosParaPosicionDiagrama.nuevaPosicionDiagrama(posicionVerbo)
 
+
+    def actualizarPosicionDiagramaSujeto(self, unCalculadorPosicionSujeto, posicionSujeto):
+        self.datosParaPosicionDiagrama.nuevoCalculadorPosicionSujeto(unCalculadorPosicionSujeto)
+        self.datosParaPosicionDiagrama.nuevaPosicionDiagrama(posicionSujeto)
+
+        
     def getPosicionParaNodoDeVerbo(self):
         return self.datosParaPosicionDiagrama.calcularPosicionProximoNodoParaVerbo()
 
@@ -73,6 +79,12 @@ de dos atributos: la noción y los impactos'''
     def terminadoDeProcesarMedida(self):
         self.datosParaProceso.nuevaMedidaEnVerbo()
 
+    def getCalculadorPosicionSujeto(self):
+        return self.datosParaPosicionDiagrama.getCalculadorPosicionSujeto()
+
+
+    def getCalculadorSujeto(self):
+        return self.datosParaPosicionDiagrama.getCalculadorSujeto()
 
     def estaDibujado(self):
         self.datosParaProceso.estaDibujado()

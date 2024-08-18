@@ -53,14 +53,14 @@ class DiagramasEnSujeto:
 
     def nuevoNodoMultiple(self, sujeto: Lel, lelMultiple: Lel):
         posicionNueva = sujeto.getPosicionParaNodoDeSujeto()
-        lelMultiple.actualizarPosicionDiagrama(posicionNueva)
+        lelMultiple.actualizarPosicionDiagramaSujeto(sujeto.getCalculadorSujeto(), posicionNueva)
             
         self.diagrama.nuevoObjetoNivelDelDiagrama(lelMultiple.simbolo, sujeto.simbolo, posicionNueva)
 
 
     def nuevoNodoOpcional(self, sujeto: Lel, lelOpcional: Lel):       
         posicionNueva = sujeto.getPosicionParaNodoDeSujeto()
-        lelOpcional.actualizarPosicionDiagrama(posicionNueva)
+        lelOpcional.actualizarPosicionDiagramaSujeto(sujeto.getCalculadorSujeto(), posicionNueva)
             
         self.diagrama.nuevoObjetoOpcionalDelDiagrama(lelOpcional.simbolo, sujeto.simbolo, posicionNueva)
         lelOpcional.terminadoDeDibujarNodo()

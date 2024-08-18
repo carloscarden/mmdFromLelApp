@@ -81,39 +81,3 @@ either privately or commercially. A car has a model.''')
         finally:
             print('***********************************************************')
 
-
-    ''' 
-        Test posicion 
-    '''
-    def getObjetosDiagramaDelNodoQueTieneQueDevolver():
-        objeto2 = ObjetoDiagrama.nuevaDimension('Segment', 'Model', (0,0))
-        objeto3 = ObjetoDiagrama.nuevaDimension('Factory', 'Model', (0,0))
-        objeto4 = ObjetoDiagrama.nuevaDimension('Engine capacity', 'Model', (0,0))
-
-        return [objeto2,objeto3, objeto4]
-
-
-    def testNodosPosicionEnNodo(self):
-
-        lel2 = Lel(Categoria.OBJETO, 'Segment', '''A category that groups different car models according to 
-                   their size, use, and capacity''')
-
-
-        lel3 = Lel(Categoria.OBJETO, 'Factory', '''A place where cars are manufactured''')
-        
-        lel4 = Lel(Categoria.OBJETO, 'Engine capacity', 
-                    '''The measurement of the total volume of the cylinders normally 
-        expressed in cubic centimeters or litres, e.g., 1805 cc''')
-
-
-
-        objetoDiagramasQueTieneQueDevolver = self.getObjetosDiagramaDelNodoQueTieneQueDevolver()
-
-        print("              TEST LINKS DEL SUJETO!!!")
-        try:
-            # Comprueba que todos los simbolos en hechosQueTieneQueDevolver están en resultado
-            print("TODO BIEN")
-        except AssertionError:
-            print("TODO MAL")
-        finally:
-            print('***********************************************************')
